@@ -1,0 +1,19 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "description": "A website for a local dance organisation",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kieran Burns",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2",
+    "gray-nedb": "^1.8.3",
+    "mustache-express": "^1.3.2",
+    "nedb": "^1.8.0",
+    "nodemon": "^3.1.9",
+    "path": "^0.12.7"
+  }
+}
