@@ -1,7 +1,9 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const router = require('./routes/homeRoutes');
+
+const homeRouter = require('./routes/homeRoutes');
+const coursesRouter = require('./routes/coursesRoutes');
 
 const public = path.join(__dirname, 'public');
 
@@ -14,7 +16,8 @@ const mustache = require('mustache-express');
 app.engine('mustache', mustache());
 app.set('view engine', 'mustache');
 
-app.use('/', router)
+app.use('/', homeRouter)
+app.use('/courses', coursesRouter)
 
 app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');
