@@ -384,43 +384,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                {{#schedule.rows}}
                                     <tr>
-                                        <td class="align-middle">09:00am</td>
-                                        <td>
-                                            <span class="text-secondary font-weight-700">Hip-Hop Foundations</span>
-                                            <span class="text-light-grey-2">Foundational Moves and Grooves</span>
-                                            <div class="display-31 text-light-gray">Shuan Push</div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary font-weight-700">Breaking Basics </span>
-                                            <span class="text-light-grey-2">power moves & freezes</span>
-                                            <div class="display-31 text-light-gray">Marta Healy</div>
-                                        </td>
-
-                                        <td>
-                                            <span class="text-secondary font-weight-700">Urban Choreography</span>
-                                            <span class="text-light-grey-2">Urban dance foundations</span>
-                                            <div class="display-31 text-light-gray">Ivana Wong</div>
-                                        </td>
-                                        <td class="bg-light">
-
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary font-weight-700">Breaking Basics </span>
-                                            <span class="text-light-grey-2">Breakdance fundamentals</span>
-                                            <div class="display-31 text-light-gray">Kate Alley</div>
-                                        </td>
-                                        <td>
-                                            <span class="text-secondary font-weight-700">Hip-Hop Foundations</span>
-                                            <span class="text-light-grey-2">Rhythm, Musicality, and Flow</span>
-                                            <div class="display-31 text-light-gray">James Smith</div>
-                                        </td>
-                                        <td class="bg-light">
-
-                                        </td>
+                                        <td class="align-middle">{{time}}</td>
+                                        {{#cells}}
+                                        {{#empty}}
+                                            <td class="bg-light"></td>
+                                        {{/empty}}
+                                        {{#content}}
+                                            <td>
+                                            <span class="text-secondary font-weight-700">{{course}}</span>
+                                            {{#class}}
+                                                <span class="text-light-grey-2">{{class}}</span>
+                                            {{/class}}
+                                            <div class="display-31 text-light-gray">{{teacher}}</div>
+                                            </td>
+                                        {{/content}}
+                                        {{/cells}}
                                     </tr>
-
-                                    <tr>
+                                {{/schedule.rows}}
+                                    {{! <tr>
                                         <td class="align-middle">10:00am</td>
                                         <td>
                                             <span class="text-secondary font-weight-700">Hip-Hop Foundations</span>
@@ -513,7 +496,7 @@
                                             <span class="text-secondary font-weight-700">Breaking Basics</span>
                                             <div class="display-31 text-light-gray">Ivana Wong</div>
                                         </td>
-                                    </tr>
+                                    </tr> }}
                                 </tbody>
                             </table>
                         </div>

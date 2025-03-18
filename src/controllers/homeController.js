@@ -1,8 +1,17 @@
 const courseDAO = require('../models/courseModel');
-const classDAO = require('../models/classModel');
 const course_db = new courseDAO();
-const class_db = new classDAO();
+
+course_db.init();
 
 exports.home_page = function(req, res) {
-  res.render('home');
+  course_db.getSchedule()
+    .then((schedule) => {
+      res.render('home', {
+        'schedule': schedule
+        });
+        console.log('promise resolved');
+    })
+    .catch((err) => {
+      console.error('promise rejected', err);
+    });
 };
