@@ -17,8 +17,8 @@ class Course {
         const courses =  [
             { _id: 'hiphop123', name: 'Hip-Hop Foundation', description: 'A course that covers the basics of hip hop dance.', classes: [
                 { title: 'Foundational Moves and Grooves', description: 'Learn the basic moves and grooves of hip hop dance.', teacher: 'Shuan Push' },
-                { title: 'Rhythm, Musicality, and Flow', description: 'Develop an understanding of rhythm and musicality.' },
-                { title: 'Choreography and Freestyle Expression', description: 'Explore choreographed sequences and freestyle expression.' }]
+                { title: 'Rhythm, Musicality, and Flow', description: 'Develop an understanding of rhythm and musicality.' , teacher: 'Man Like Ush'},
+                { title: 'Choreography and Freestyle Expression', description: 'Explore choreographed sequences and freestyle expression.', teacher: 'Kieran Burns' }]
             },
             { _id: 'breaking456', name: 'Breaking Basics', description: 'Learn the fundamentals of breaking dance.' , classes: [
                 { title: 'Breakdance fundamentals', description: 'Learn the basics of breaking.', teacher: 'Rudy Mbunzu' },

@@ -18,13 +18,13 @@
 
         <!-- PAGE TITLE
         ================================================== -->
-        <section class="page-title-section bg-img cover-background theme-overlay-dark-blue left-overlay-dark top-position" data-overlay-dark="6" data-background="img/bg/bg-05.jpg">
+        <section class="page-title-section bg-img cover-background theme-overlay-dark-blue left-overlay-dark top-position" data-overlay-dark="6" data-background="other/img/bg/bg-05.jpg">
             <div class="container">
                 <div class="row text-center align-items-center justify-content-center">
                     <div class="col-md-12">
                         <h1 class="text-white mb-1-6">Our Courses</h1>
                         <ul>
-                            <li><a href="index.html">Home</a></li>
+                            <li><a href="/">Home</a></li>
                             <li>Our Courses</li>
                         </ul>
                     </div>
@@ -37,19 +37,21 @@
         <section>
             <div class="container">
                 <div class="row mt-n2-6 g-lg-5">
+                {{#courses}}
+                    {{#classes}}
                     <div class="col-md-6 col-xl-4 mt-2-6">
                         <div class="card card-style11 wow fadeIn" data-wow-delay="100ms">
                             <div class="card-img">
-                                <img src="img/content/courses-01.jpg" alt="...">
+                                <img src="other/img/content/courses-01.jpg" alt="...">
                             </div>
                             <div class="card-body">
                                 <div class="card-teacher">
-                                    <img src="img/avatars/avatar-01.jpg" alt="...">
-                                    <span>Maya</span>
+                                    <img src="other/img/avatars/avatar-01.jpg" alt="...">
+                                    <span>{{teacher}}</span>
                                 </div>
                                 <div class="card-title">
-                                    <span>Bikram</span>
-                                    <h4><a href="courses-details.html">Yoga for Beginners Course</a></h4>
+                                    <span>{{name}}</span>
+                                    <h4><a href="courses-details.html">{{title}}</a></h4>
                                 </div>
                                 <ul class="card-list list-unstyled mb-0">
                                     <li><i class="ti-notepad"></i>Mon, Thu, Fri</li>
@@ -58,225 +60,15 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-xl-4 mt-2-6">
-                        <div class="card card-style11 wow fadeIn" data-wow-delay="200ms">
-                            <div class="card-img">
-                                <img src="img/content/courses-02.jpg" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <div class="card-teacher">
-                                    <img src="img/avatars/avatar-02.jpg" alt="...">
-                                    <span>Archie</span>
-                                </div>
-                                <div class="card-title">
-                                    <span>Corepower</span>
-                                    <h4><a href="courses-details.html">Yamas and Niyamas</a></h4>
-                                </div>
-                                <ul class="card-list list-unstyled mb-0">
-                                    <li><i class="ti-notepad"></i>Mon, Thu, Fri</li>
-                                    <li><i class="ti-time"></i>9:00 - 11:00</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4 mt-2-6">
-                        <div class="card card-style11 wow fadeIn" data-wow-delay="300ms">
-                            <div class="card-img">
-                                <img src="img/content/courses-03.jpg" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <div class="card-teacher">
-                                    <img src="img/avatars/avatar-03.jpg" alt="...">
-                                    <span>Summer</span>
-                                </div>
-                                <div class="card-title">
-                                    <span>Meditation</span>
-                                    <h4><a href="courses-details.html">The Smart Flow Yoga</a></h4>
-                                </div>
-                                <ul class="card-list list-unstyled mb-0">
-                                    <li><i class="ti-notepad"></i>Mon, Thu, Fri</li>
-                                    <li><i class="ti-time"></i>9:00 - 11:00</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4 mt-2-6">
-                        <div class="card card-style11 wow fadeIn" data-wow-delay="100ms">
-                            <div class="card-img">
-                                <img src="img/content/courses-04.jpg" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <div class="card-teacher">
-                                    <img src="img/avatars/avatar-04.jpg" alt="...">
-                                    <span>Jonathan</span>
-                                </div>
-                                <div class="card-title">
-                                    <span>Prana Yoga</span>
-                                    <h4><a href="courses-details.html">Nine days of Pranayama</a></h4>
-                                </div>
-                                <ul class="card-list list-unstyled mb-0">
-                                    <li><i class="ti-notepad"></i>Mon, Thu, Fri</li>
-                                    <li><i class="ti-time"></i>9:00 - 11:00</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4 mt-2-6">
-                        <div class="card card-style11 wow fadeIn" data-wow-delay="200ms">
-                            <div class="card-img">
-                                <img src="img/content/courses-05.jpg" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <div class="card-teacher">
-                                    <img src="img/avatars/avatar-05.jpg" alt="...">
-                                    <span>Oskar</span>
-                                </div>
-                                <div class="card-title">
-                                    <span>Pranayama</span>
-                                    <h4><a href="courses-details.html">Mastering Anxiety</a></h4>
-                                </div>
-                                <ul class="card-list list-unstyled mb-0">
-                                    <li><i class="ti-notepad"></i>Mon, Thu, Fri</li>
-                                    <li><i class="ti-time"></i>9:00 - 11:00</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-xl-4 mt-2-6">
-                        <div class="card card-style11 wow fadeIn" data-wow-delay="300ms">
-                            <div class="card-img">
-                                <img src="img/content/courses-06.jpg" alt="...">
-                            </div>
-                            <div class="card-body">
-                                <div class="card-teacher">
-                                    <img src="img/avatars/avatar-06.jpg" alt="...">
-                                    <span>Maureen</span>
-                                </div>
-                                <div class="card-title">
-                                    <span>Vinyasa Yoga</span>
-                                    <h4><a href="courses-details.html">Yoga For Better Sleep</a></h4>
-                                </div>
-                                <ul class="card-list list-unstyled mb-0">
-                                    <li><i class="ti-notepad"></i>Mon, Thu, Fri</li>
-                                    <li><i class="ti-time"></i>9:00 - 11:00</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    {{/classes}}
+                {{/courses}}
                 </div>
             </div>
         </section>
 
         <!-- FOOTER
         ================================================== -->
-        <footer class="position-relative">
-            <div class="footer-top position-relative pt-6 pt-md-8 pt-lg-10 pt-xl-12">
-                <div class="container z-index-9 position-relative">
-                    <div class="row pb-6 pb-lg-8 mt-n1-9">
-                        <div class="col-md-6 col-lg-3 mt-1-9">
-                            <div class="pe-xl-3">
-                                <div class="mb-1-6 footer-logo">
-                                    <a href="index.html">
-                                        <img src="img/logos/footer-light-logo.png" alt="...">
-                                    </a>
-                                </div>
-                                <div>
-                                    <div class="d-flex mb-2">
-                                        <p class="d-inline-block mb-0"><a href="#!" class="text-white opacity8"><i class="fa-solid fa-location-dot me-3"></i></a></p>
-                                        <p class="mb-0 d-inline-block text-white opacity8">66 Guild Street 512B, Great North Town.</p>
-                                    </div>
-                                    <div class="d-flex mb-2">
-                                        <p class="d-inline-block mb-0"><a href="#!" class="text-white opacity8"><i class="fa-solid fa-phone-flip me-3"></i></a></p>
-                                        <p class="mb-0 d-inline-block"><a href="#!" class="text-white opacity8">(+44) 123 456 789</a></p>
-                                    </div>
-                                    <div class="d-flex">
-                                        <p class="d-inline-block mb-0"><a href="#!" class="text-white opacity8"><i class="fa-solid fa-envelope me-3"></i></a></p>
-                                        <p class="mb-0 d-inline-block"><a href="#!" class="text-white opacity8">info@example.com</a></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3 mt-1-9">
-                            <div class="ps-lg-5">
-                                <h3 class="text-secondary h6 letter-spacing-2 mb-2-2 text-uppercase">Useful Link</h3>
-                                <ul class="list-unstyled list-style1 mb-0">
-                                    <li class="mb-3"><a href="about.html" class="text-white opacity8">About Us</a></li>
-                                    <li class="mb-3"><a href="history.html" class="text-white opacity8">History</a></li>
-                                    <li class="mb-3"><a href="services.html" class="text-white opacity8">Services</a></li>
-                                    <li class="mb-3"><a href="pricing-plans.html" class="text-white opacity8">Pricing Plan</a></li>
-                                    <li class="mb-0"><a href="contact.html" class="text-white opacity8">Contact</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-3 mt-1-9">
-                            <div>
-                                <h3 class="text-secondary h6 letter-spacing-2 mb-2-2 text-uppercase">Classes</h3>
-                                <ul class="list-unstyled list-style1 mb-0">
-                                    <li class="mb-3"><a href="#!" class="text-white opacity8">Fat burn</a></li>
-                                    <li class="mb-3"><a href="#!" class="text-white opacity8">Cycling</a></li>
-                                    <li class="mb-3"><a href="#!" class="text-white opacity8">Stretching</a></li>
-                                    <li class="mb-3"><a href="#!" class="text-white opacity8">Weight Loss</a></li>
-                                    <li class="mb-0"><a href="#!" class="text-white opacity8">Build Muscle</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3 mt-1-9">
-                            <div>
-                                <h3 class="text-secondary h6 letter-spacing-2 mb-2-2 text-uppercase">Get News</h3>
-                                <p class="text-white opacity8">Subscribe to our newsletter to receive updates on the latest news!</p>
-                                <form class="quform newsletter-rounded" action="quform/newsletter-two.php" method="post" enctype="multipart/form-data" onclick="">
-                                    <div class="quform-elements">
-
-                                        <div class="row">
-
-                                            <!-- Begin Text input element -->
-                                            <div class="col-md-12">
-                                                <div class="quform-element m-0">
-                                                    <div class="quform-input">
-                                                        <input class="rounded-pill form-control" id="email_address" type="text" name="email_address" placeholder="Subscribe with us" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- End Text input element -->
-
-                                            <!-- Begin Submit button -->
-                                            <div class="col-md-12">
-                                                <div class="quform-submit-inner">
-                                                    <button class="btn btn-white text-primary m-0 px-4" type="submit"><i class="fas fa-paper-plane"></i></button>
-                                                </div>
-                                                <div class="quform-loading-wrap"><span class="quform-loading"></span></div>
-                                            </div>
-                                            <!-- End Submit button -->
-
-                                        </div>
-
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom z-index-9 position-relative">
-                <div class="container position-relative z-index-9">
-                    <div class="row align-items-center py-4">
-                        <div class="col-md-7 col-lg-6 text-center text-md-start order-2 order-md-1">
-                            <p class="d-inline-block text-white mb-0">
-                            &copy; <span class="current-year"></span> All rights reserved by <a href="#!" class="text-secondary text-primary-hover">Chitrakoot Web</a></p>
-                        </div>
-                        <div class="col-md-5 col-lg-6 text-center text-md-end mb-3 mb-md-0 order-1 order-md-2">
-                            <ul class="social-icon-style1 me-xl-12">
-                                <li><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-twitter"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-youtube"></i></a></li>
-                                <li><a href="#!"><i class="fab fa-linkedin-in"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
+        {{> partials/footer}}
 
         <!-- cursor helper -->
         <div class="cursor-helper">
