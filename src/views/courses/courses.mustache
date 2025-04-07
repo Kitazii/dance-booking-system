@@ -35,35 +35,33 @@
         <!-- COURSES
         ================================================== -->
         <section>
+        <form method="get" role="form" action="/courses/details">
             <div class="container">
                 <div class="row mt-n2-6 g-lg-5">
                 {{#courses}}
-                    {{#classes}}
                     <div class="col-md-6 col-xl-4 mt-2-6">
-                        <div class="card card-style11 wow fadeIn" data-wow-delay="100ms">
+                        <button type="submit" name="courseId" value="{{_id}}" 
+                                class="card card-style11 wow fadeIn" 
+                                data-wow-delay="100ms">
                             <div class="card-img">
-                                <img src="other/img/content/courses-01.jpg" alt="...">
+                                <img src="/other/img/content/courses-01.jpg" alt="...">
                             </div>
                             <div class="card-body">
-                                <div class="card-teacher">
-                                    <img src="other/img/avatars/avatar-01.jpg" alt="...">
-                                    <span>{{teacher}}</span>
-                                </div>
                                 <div class="card-title">
-                                    <span>{{name}}</span>
-                                    <h4><a href="courses-details.html">{{title}}</a></h4>
+                                    <span>{{category}}</span>
+                                    <h4 class="text-hover">{{name}}</h4>
                                 </div>
                                 <ul class="card-list list-unstyled mb-0">
                                     <li><i class="ti-notepad"></i>Mon, Thu, Fri</li>
                                     <li><i class="ti-time"></i>9:00 - 11:00</li>
                                 </ul>
                             </div>
-                        </div>
+                        </button>
                     </div>
-                    {{/classes}}
                 {{/courses}}
                 </div>
             </div>
+        </form>
         </section>
 
         <!-- FOOTER

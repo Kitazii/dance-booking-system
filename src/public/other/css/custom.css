@@ -9,3 +9,20 @@
 .text-light-grey-2 {
     color: #909090;
 }
+
+.btn-as-inherited {
+    background: none;    /* Remove background */
+    border: none;        /* Remove border */
+    padding: 0;          /* Remove extra padding */
+    font: inherit;       /* Inherit font settings from the previous tag */
+    color: inherit;      /* Inherit text color */
+    cursor: pointer;     /* Show pointer on hover */
+}
+
+.btn-as-inherited:hover {
+    color: #d7c12f;      /* Change text color on hover */
+}
+
+.text-hover:hover {
+    color: #d7c12f;      /* Change text color on hover */
+}

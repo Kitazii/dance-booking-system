@@ -1,0 +1,326 @@
+<html lang="en">
+
+{{> partials/head}}
+
+<body>
+
+    <!-- PAGE LOADING
+    ================================================== -->
+    <div id="preloader"></div>
+
+    <!-- MAIN WRAPPER
+    ================================================== -->
+    <div class="main-wrapper">
+
+        <!-- NAVIGATION
+        ================================================== -->
+        {{> partials/nav}} 
+
+        <!-- PAGE TITLE
+        ================================================== -->
+        <section class="page-title-section bg-img cover-background theme-overlay-dark-blue left-overlay-dark top-position" data-overlay-dark="6" data-background="img/bg/bg-05.jpg">
+            <div class="container">
+                <div class="row text-center align-items-center justify-content-center">
+                    <div class="col-md-12">
+                        <h1 class="text-white mb-1-6">Courses Details</h1>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li>Courses Details</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- COURSES
+        ================================================== -->
+        <section>
+            <div class="container">
+                <div class="row mt-n2-9">
+                    <div class="col-lg-8 mt-2-9 wow fadeIn" data-wow-delay="100ms">
+                        <div>
+                            <div class="mb-1-9">
+                                <img src="/other/img/content/courses-detail-01.jpg" alt="...">
+                            </div>
+                            <div class="bg-light p-2-2 mb-1-9">
+                                <div class="row align-items-center mb-1-9 mt-n1-6">
+                                    <div class="col-sm-6 col-md-4 mt-1-6">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0">
+                                                <img src="/other/img/avatars/avatar-09.jpg" class="border-radius-50" alt="...">
+                                            </div>
+                                            <div class="flex-grow-1 ms-4">
+                                                <span class="text-primary">Course Lead</span>
+                                                <h6>{{courses.courseLead}}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-4 mt-1-6">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <div class="flex-shrink-0">
+                                                <div>
+                                                    <i class="ti-bookmark display-13"></i>
+                                                </div>
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                                <span class="text-primary">Category</span>
+                                                <h6>{{courses.category}}</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 col-md-4 mt-1-6">
+                                        <div class="text-md-end">
+                                            <div>
+                                                <i class="fa-solid fa-star text-secondary"></i>
+                                                <i class="fa-solid fa-star text-secondary"></i>
+                                                <i class="fa-solid fa-star text-secondary"></i>
+                                                <i class="fa-solid fa-star text-secondary"></i>
+                                                <i class="fa-solid fa-star text-secondary"></i>
+                                            </div>
+                                            <div>
+                                                <span class="text-primary">Review</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 class="h2 border-bottom pb-1-9 mb-4">{{courses.name}}</h4>
+                                <ul class="list-unstyled d-sm-flex mb-0">
+                                    <li class="me-1-9 mb-2 mb-sm-0"><i class="fa-solid fa-clock me-2 text-primary"></i>{{courses.duration}}</li>
+                                    <li class="me-1-9 mb-2 mb-sm-0"><i class="fa-solid fa-signal me-2 text-primary"></i>{{courses.difficulty}}</li>
+                                    <li class="me-1-9 mb-2 mb-sm-0"><i class="fa-solid fa-file me-2 text-primary"></i>{{courses.Sessions}} Sessions</li>
+                                    <!-- <li class="me-1-9 mb-2 mb-sm-0"><i class="fa-solid fa-clock me-2 text-primary"></i>2 Lectures</li> -->
+                                    <li class=><i class="fa-solid fa-graduation-cap me-2 text-primary"></i>{{courses.teachers}} Teachers</li>
+                                </ul>
+                            </div>
+                            <div>   
+                                <h3 class="mb-1-6">Introduction to the class</h3>
+                                <p>{{courses.intro}}</p>  
+                                <h3 class="mb-1-6">Classes</h3>
+                                <form method="get" role="form" action="/courses/class">
+                                    <div>
+                                        {{#courses.classes}}
+                                            <ul>
+                                                <li>
+                                                    <span class="fw-bold"><button type="submit" name="classId" value="{{classId}}" class="btn-as-inherited">{{title}}:<span></button>
+                                                    <p class="fw-normal">{{description}}<p>
+                                                </li>
+                                            </ul>
+                                        {{/courses.classes}}
+                                    </div>
+                                    <div class="row mt-n4 mb-2-9 wow fadeIn" data-wow-delay="100ms">
+                                        {{#courses.classes}}
+                                        <div class="col-md-4 mt-4 text-center">
+                                            <button type="submit" name="classId" value="{{classId}}" class="btn-as-inherited">
+                                                <img src="/other/img/content/course-details-01.jpg" class="rounded" alt="...">
+                                                <span>{{title}}<span>
+                                            </button>
+                                        </div>
+                                        {{/courses.classes}}
+                                    </div>
+                                </form>
+                                {{!
+                                <div class="border-top border-color-light-black pt-1-9 g-0 d-md-flex align-items-center entry-footer float-start w-100 social-icon-style2 mb-2-9">
+                                    <div class="tags flex-grow-1 mb-4 mb-md-0 pe-md-3"><label class="h6 me-3 mb-0">Tags:</label><a href="#!" rel="tag">Investment</a></div>    
+                                    <div class="blog-share-icon wow fadeIn" data-wow-delay="400ms">
+                                        <label class="h6 me-1 mb-0">Share:</label>
+                                        <ul class="share-post m-0 p-0 d-inline-block">
+                                            <li><a title="Facebook" href="#!"><i class="fab fa-facebook-f pd-top"></i></a></li>
+                                            <li><a title="Twitter" href="#!"><i class="fab fa-twitter pd-top"></i></a></li>
+                                            <li><a title="Pinterest" href="#!"><i class="fab fa-pinterest-p pd-top"></i></a></li>
+                                            <li><a title="LinkedIn" href="#!"><i class="fab fa-linkedin-in pd-top"></i></a></li>
+                                        </ul>    
+                                    </div>    
+                                </div>
+                                
+                                <div class="row">
+                                    <!-- comment -->
+                                    <div class="col-12 mb-5 wow fadeIn" data-wow-delay="100ms">
+                                        <div>
+                                            <span class="text-primary fw-bold display-25 d-block mb-4">#Comments</span>
+                                            <div class="d-flex border-bottom pb-4 mb-5">
+                                                <div class="flex-shrink-0">
+                                                    <img src="/other/img/avatars/avatar-02.jpg" class="border-radius-5" alt="...">
+                                                </div>
+                                                <div class="flex-grow-1 ms-3">
+                                                    <h4 class="h5 mb-2">Denis Irwin</h4>
+                                                    <p class="mb-1">
+                                                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+                                                    </p>
+                                                    <a class="text-primary  small" href="#!">Reply</a>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex border-bottom pb-4 mb-5">
+                                                <div class="flex-shrink-0">
+                                                    <img src="/other/img/avatars/avatar-03.jpg" class="border-radius-5" alt="...">
+                                                </div>
+                                                <div class="flex-grow-1 ms-3">
+                                                    <h4 class="h5 mb-2">Erica Turner</h4>
+                                                    <p class="mb-1">
+                                                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+                                                    </p>
+                                                    <a class="text-primary  small" href="#!">Reply</a>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex">
+                                                <div class="flex-shrink-0">
+                                                    <img src="/other/img/avatars/avatar-04.jpg" class="border-radius-5" alt="...">
+                                                </div>
+                                                <div class="flex-grow-1 ms-3">
+                                                    <h4 class="h5 mb-2">John Martin</h4>
+                                                    <p class="mb-1">
+                                                        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
+                                                    </p>
+                                                    <a class="text-primary  small" href="#!">Reply</a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- end comment-->
+                                    <div class="col-12 wow fadeIn" data-wow-delay="100ms">
+                                        <span class="text-primary fw-bold display-25 d-block mb-4">#Leave a reply</span>
+
+                                        <!-- Form -->
+                                        <form>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <textarea name="reply" rows="6" class="form-control h-100" placeholder="Your Reply"></textarea>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" name="name" placeholder="Your Name">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group">
+                                                        <input type="email" class="form-control" name="email" placeholder="Email Address">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <button class="btn-style1 medium" type="submit">Leave a Reply</button>
+                                            </div>
+                                        </form>
+                                        <!-- End Form -->
+                
+                                    </div>
+                                </div>  
+                                }}  
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Sidebar BOOKING -->
+                    <div class="col-lg-4 mt-2-9">
+                        <div class="ms-xl-4">
+                            <div class="sidebar">
+                                <!-- Enroll Widget -->
+                                <div class="widget bg-light px-1-6 py-1-9 rounded">
+                                    <h4 class="border-bottom pb-4 mb-1-9">Book This Course</h4>
+                                    <p class="mb-3">
+                                        Ready to join the Yoga for Beginners Course? 
+                                        If you've not got an account, the email you enter will be used to create one for you.
+                                    </p>
+                                    <!-- Adjust the href to point to your enrollment or booking page/route -->
+                                    <a 
+                                        href="/enroll?course=yoga-beginners" 
+                                        class="btn-style1"
+                                        data-course-id="1234" 
+                                        data-require-login="true"
+                                    >
+                                        Enroll Now
+                                    </a>
+                                </div>
+                                <!-- End Enroll Widget -->
+                                {{! <div class="widget widget_search bg-light px-1-6 py-1-9 rounded">
+                                    <h4 class="border-bottom pb-4 mb-1-9">Search</h4>
+                                    <form action="#!">
+                                        <div class="input-group">
+                                            <input type="search" class="form-control" placeholder="Search..." name="s">
+                                            <div class="input-group-append">
+                                                <button class="btn-style1" type="submit"><i class="fa fa-search"></i></button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                                <div class="widget widget_news bg-light px-1-6 pt-1-9 rounded">
+                                    <div>
+                                        <h4 class="border-bottom pb-4 mb-1-9">Recent Post</h4>
+                                        <!-- card-style11 class with 'height: 100%' attribute was no longer working had to disable in css-->
+                                        <div class="card card-style11 card-box">
+                                            <div class="card-img">
+                                                <img src="/other/img/content/courses-detail-02.jpg" alt="...">
+                                            </div>
+                                            <div class="card-body bg-light px-0">
+                                                <div class="card-title">
+                                                    <h4><a href="courses-details.html">Yamas and Niyamas</a></h4>
+                                                </div>
+                                                <ul class="card-list list-unstyled mb-0">
+                                                    <li><i class="ti-notepad"></i>Mon, Thu, Fri</li>
+                                                    <li><i class="ti-time"></i>9:00 - 11:00</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="card card-style11 card-box mb-0">
+                                            <div class="card-img">
+                                                <img src="/other/img/content/courses-detail-03.jpg" alt="...">
+                                            </div>
+                                            <div class="card-body bg-light px-0">
+                                                <div class="card-title">
+                                                    <h4><a href="courses-details.html">The Smart Flow Yoga</a></h4>
+                                                </div>
+                                                <ul class="card-list list-unstyled mb-0">
+                                                    <li><i class="ti-notepad"></i>Mon, Thu, Fri</li>
+                                                    <li><i class="ti-time"></i>9:00 - 11:00</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="widget widget_tag_cloud bg-light px-1-6 py-1-9 rounded">
+                                    <h4 class="border-bottom pb-4 mb-1-9">Tags</h4>
+                                    <div class="tagcloud">
+                                        <ul class="wp-tag-cloud list-unstyled mb-0" role="list">
+                                            <li><a href="#!" class="tag-cloud-link tag-link-7 tag-link-position-1">Health</a></li>
+                                            <li><a href="#!" class="tag-cloud-link tag-link-8 tag-link-position-2">Meditation</a></li>
+                                            <li><a href="#!" class="tag-cloud-link tag-link-9 tag-link-position-3">Yoga Asana</a></li>
+                                            <li><a href="#!" class="tag-cloud-link tag-link-10 tag-link-position-4">Yoga</a></li>
+                                            <li><a href="#!" class="tag-cloud-link tag-link-11 tag-link-position-5">Philosophy</a></li>
+                                            <li><a href="#!" class="tag-cloud-link tag-link-12 tag-link-position-6">Teachers</a></li>
+                                        </ul>
+                                    </div>
+                                </div>                                 }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER
+        ================================================== -->
+        {{> partials/footer}}
+
+        <!-- cursor helper -->
+        <div class="cursor-helper">
+            <div class="cursor-helper-outer"></div>
+            <div class="cursor-helper-inner"></div>
+        </div>
+
+    </div>
+
+    <!-- start scroll to top -->
+    <a href="#!" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+    <!-- end scroll to top -->
+
+    <!-- all js include start -->
+
+   {{> partials/tail}}
+
+    <!-- all js include end -->
+
+</body>
+
+</html>
