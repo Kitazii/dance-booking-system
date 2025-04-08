@@ -24,7 +24,7 @@
                         <nav class="navbar navbar-expand-lg navbar-light p-0">
                             <div class="navbar-header navbar-header-custom">
                                 <!-- start logo -->
-                                <a href="home" class="navbar-brand"><img id="logo" src="/other/img/logos/logo-inner.png" alt="logo"></a>
+                                <a href="/" class="navbar-brand"><img id="logo" src="/other/img/logos/logo-inner.png" alt="logo"></a>
                                 <!-- end logo -->
                             </div>
 
@@ -58,7 +58,13 @@
                             <!-- start attribute navigation -->
                             <div class="attr-nav align-items-xl-center ms-xl-auto main-font">
                                 <ul>
-                                    <li class="d-none d-xl-inline-block"><a href="contact.html" class="btn-style1 primary medium text-white">Login</a></li>
+                                    {{^user}}
+                                    <li class="d-none d-xl-inline-block"><a id="login" href="/login" class="btn-style1 primary medium text-white">Login</a></li>
+                                    <li class="d-none d-xl-inline-block"><a id="register" href="/register" class="btn-style1 primary medium text-white">Register</a></li>
+                                    {{/user}}
+                                    {{#user}}
+                                    <li class="d-none d-xl-inline-block"><a id="logout" href="/logout" class="btn-style1 primary medium text-white">Logout</a></li>
+                                    {{/user}}
                                 </ul>
                             </div>
                             <!-- end attribute navigation -->

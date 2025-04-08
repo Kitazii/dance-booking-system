@@ -4,7 +4,8 @@ exports.courses_page = function(req, res) {
     courseService.getAllCourses()
         .then((courses) => {
             res.render('courses/courses', {
-                'courses': courses
+                'courses': courses,
+                user: res.locals.user
             });
             console.log('promise resolved');
         })
@@ -18,7 +19,8 @@ exports.course_details_page = function(req, res) {
     courseService.getCourseById(courseId)
         .then((courses) => {
             res.render('courses/details', {
-                'courses': courses
+                'courses': courses,
+                user: res.locals.user
             });
             console.log('promise resolved');
             console.log(courses);
@@ -36,10 +38,11 @@ exports.class_page = function(req, res) {
             const currentClass = courses.classes.find(c => c.classId === classId);
             res.render('courses/class', {
                 currentClass: currentClass,
-                'courses': courses
+                'courses': courses,
+                user: res.locals.user
             });
             console.log('promise resolved');
-            console.log(courses);
+            console.log(res.locals.user);
         })
         .catch((err) => {
             console.error('promise rejected', err);
