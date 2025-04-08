@@ -1,10 +1,7 @@
-const courseDAO = require('../models/courseModel');
-const course_db = new courseDAO();
-
-course_db.init();
+const courseService = require('../service/courseService');
 
 exports.courses_page = function(req, res) {
-    course_db.getAllCourses()
+    courseService.getAllCourses()
         .then((courses) => {
             res.render('courses/courses', {
                 'courses': courses
@@ -18,7 +15,7 @@ exports.courses_page = function(req, res) {
 
 exports.course_details_page = function(req, res) {
     const courseId = req.query.courseId;
-    course_db.getCourseById(courseId)
+    courseService.getCourseById(courseId)
         .then((courses) => {
             res.render('courses/details', {
                 'courses': courses
@@ -33,12 +30,13 @@ exports.course_details_page = function(req, res) {
 
 exports.class_page = function(req, res) {
     const classId = req.query.classId;
-    course_db.getClassById(classId)
+    courseService.getClassById(classId)
         .then((courses) => {
             // Locate the specific class from the array
             const currentClass = courses.classes.find(c => c.classId === classId);
             res.render('courses/class', {
-                currentClass: currentClass
+                currentClass: currentClass,
+                'courses': courses
             });
             console.log('promise resolved');
             console.log(courses);

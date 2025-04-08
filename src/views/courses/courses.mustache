@@ -40,13 +40,17 @@
                 <div class="row mt-n2-6 g-lg-5">
                 {{#courses}}
                     <div class="col-md-6 col-xl-4 mt-2-6">
-                        <button type="submit" name="courseId" value="{{_id}}" 
+                        <button type="submit" name="courseId" value="{{id}}" 
                                 class="card card-style11 wow fadeIn" 
                                 data-wow-delay="100ms">
                             <div class="card-img">
                                 <img src="/other/img/content/courses-01.jpg" alt="...">
                             </div>
                             <div class="card-body">
+                                <div class="card-teacher">
+                                        <img src="img/avatars/avatar-01.jpg" alt="...">
+                                        <span>{{type}}</span>
+                                </div>
                                 <div class="card-title">
                                     <span>{{category}}</span>
                                     <h4 class="text-hover">{{name}}</h4>

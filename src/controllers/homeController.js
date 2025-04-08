@@ -1,10 +1,7 @@
-const courseDAO = require('../models/courseModel');
-const course_db = new courseDAO();
-
-course_db.init();
+const courseService = require('../service/courseService');
 
 exports.home_page = function(req, res) {
-  course_db.getSchedule()
+  courseService.getSchedule()
     .then((schedule) => {
       res.render('home', {
         'schedule': schedule
