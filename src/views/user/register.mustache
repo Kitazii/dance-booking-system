@@ -1,20 +1,61 @@
-<html>
+<html lang="en">
+
+<!-- HEAD
+    ================================================== -->
 {{> partials/head}}
-<body class="container">
-    <h1>{{title}}</h1>
-    <h2>New User Registration</h2>
-    <form method="post" action="/register">
-        <div class="form-group">
-            {{user-name-error}}
-            <label for="username">User Name</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Enter user name" required>
+<body>
+ <!-- PAGE LOADING
+    ================================================== -->
+    <div id="preloader"></div>
+    <!-- MAIN WRAPPER
+    ================================================== -->
+    <div class="main-wrapper">
+     <!-- NAVIGATION
+        ================================================== -->
+        {{> partials/nav}} 
+
+        <!-- PAGE TITLE
+        ================================================== -->
+        <section class="theme-overlay-dark-blue left-overlay-dark form-top-position" data-overlay-dark="6"></section>
+        <section class="account-section-text-align">
+            <h2>Register</h2>
+            <div id="formContent" class="account-div-styling">
+                <!-- Register Form -->
+                <form method="post" action="/register">
+                    <div class="form-group">
+                        {{user-name-error}}
+                        <label for="username" class="col-formlabel">User Name</label>
+                        <div class="col-sm-10 input-group">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Enter user name" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password (8 characters minimum)</label>
+                        <div class="col-sm-10 input-group">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" minlength="8" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Register" class="btn-style1 primary small">
+                    </div>
+                </form>
+            </div>
+         </section>
+        <div>
+        <!-- FOOTER
+            ================================================== -->
+            {{> partials/footer}}
         </div>
-        <div class="form-group">
-            <label for="password">Password (8 characters minimum)</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" minlength="8" required>
-        </div>
-        <div class="form-group">
-            <input type="submit" value="Register" class="btn btn-primary">
-        </div>
-    </form>
+    </div>
+
+    <!-- start scroll to top -->
+    <a href="#!" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+    <!-- end scroll to top -->
+
+    <!-- all js include start -->
+
+   {{> partials/tail}}
+
+    <!-- all js include end -->
 </body>
+</html>

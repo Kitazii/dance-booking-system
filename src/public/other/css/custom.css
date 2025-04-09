@@ -26,3 +26,16 @@
 .text-hover:hover {
     color: #d7c12f;      /* Change text color on hover */
 }
+
+.form-top-position {
+    margin-top: -200px;
+}
+
+.account-section-text-align {
+    text-align: center;
+}
+
+.account-div-styling {
+    display: inline-block;
+    text-align: left;
+}

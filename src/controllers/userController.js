@@ -35,7 +35,7 @@ exports.create_new_user = function(req, res) {
             res.send(401, 'user already exists', user);
             return;
         }
-        userService.create(user, password);
+        userService.create(user, password, 'customer');
         console.log('register user', user, "password", password);
         res.redirect('/login');
     });

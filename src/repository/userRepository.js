@@ -1,6 +1,7 @@
 const Datastore = require('gray-nedb');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const User = require('../models/userModel'); // Import the User model
 
 class UserRepository {
     constructor(dbFilePath) {
@@ -14,28 +15,71 @@ class UserRepository {
         }
     }
 
-    //for the demo the password is the bcrypt of the username
     init() {
-        this.db.insert({ user: 'Peter', password: '$2b$10$I82WRFuGghOMjtu3LLZW9OAMrmYOlMZjEEkh.vx.K2MM05iu5hY2C' });
-        this.db.insert({ user: 'Ann', password: '$2b$10$bnEYkqZM.MhEF/LycycymOeVwkQONq8kuAUGx6G5tF9UtUcaYDs3S' });
-        return this;
+        const users = [
+            new User({
+              forename: 'Sam',
+              surname: 'Parker',
+              email: 'sam@example.com',
+              username: 'Sam',
+              password: '$2a$10$MvcoTBGzmVUJtcy9k.moZeMZXCszsBzVTxKY2Nzz4GL9i4s4vInj2', // pre-hashed password
+              role: 'admin'
+            }),
+            new User({
+              forename: 'Ann',
+              surname: 'Smith',
+              email: 'ann@example.com',
+              username: 'Ann',
+              password: '$2b$10$bnEYkqZM.MhEF/LycycymOeVwkQONq8kuAUGx6G5tF9UtUcaYDs3S', // pre-hashed password
+              role: 'staff'
+            }),
+            new User({
+              forename: 'Peter',
+              surname: 'Brown',
+              email: 'pet@example.com',
+              username: 'Peter',
+              password: '$2b$10$I82WRFuGghOMjtu3LLZW9OAMrmYOlMZjEEkh.vx.K2MM05iu5hY2C', // pre-hashed password
+              role: 'student'
+            })
+        ];
+
+        // Insert each user object into the database.
+        users.forEach(user => {
+            // Using spread operator to convert the instance to a plain object.
+            this.db.insert({ ...user }, (err, newDoc) => {
+            if (err) {
+                console.log('Error inserting user:', err);
+            } else {
+                console.log('User inserted:', newDoc);
+            }
+            });
+      });
+        // this.db.insert({ user: 'Peter', password: '$2b$10$I82WRFuGghOMjtu3LLZW9OAMrmYOlMZjEEkh.vx.K2MM05iu5hY2C', role: 'student' });
+        // this.db.insert({ user: 'Sam', password: '$2a$10$MvcoTBGzmVUJtcy9k.moZeMZXCszsBzVTxKY2Nzz4GL9i4s4vInj2', role: 'admin' });
+        // this.db.insert({ user: 'Ann', password: '$2b$10$bnEYkqZM.MhEF/LycycymOeVwkQONq8kuAUGx6G5tF9UtUcaYDs3S', role: 'staff' });
+        // return this;
     }
 
-    create(username, password) {
-        const that = this;
-        bcrypt.hash(password, saltRounds).then(function(hash) {
-            var entry = { user: username, password: hash };
-            that.db.insert(entry, function(err) {
+    create(username, password, role = 'student') {
+        bcrypt.hash(password, saltRounds).then((hash) =>{
+            const newUser = new User({
+                username: username,
+                password: hash,
+                role: role});
+            //var entry = { user: username, password: hash, role: role };
+            this.db.insert({ ...newUser }, (err, newDoc) => {
                 if (err) {
-                    console.log('error inserting user:', username);
+                  console.log('Error inserting user:', username);
+                } else {
+                  console.log('New user created:', newDoc);
                 }
             });
         });
     }
 
-    lookup(user, cb) {
-        this.db.find({'user': user}, function(err, entries) {
-            console.log('lookup user:', user, 'entries:', entries,);
+    lookup(username, cb) {
+        this.db.find({username: username}, function(err, entries) {
+            console.log('lookup user:', username, 'entries:', entries,);
             if (err) {
                 return cb(null, null);
             } else {

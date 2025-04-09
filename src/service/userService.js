@@ -5,7 +5,7 @@ class UserService {
     return userRepo.init();
   }
 
-  create(username, password) {
+  create(username, password, role = 'customer') {
     return userRepo.create(username, password);
   }
 

@@ -20,7 +20,7 @@ exports.login = function(req, res, next) {
         bcrypt.compare(password, user.password, function(err, result) {
             if (result) {
                 //if user exists we will write code to create a JWT here
-                let payload = { username: user.user };
+                let payload = { username: user.username, role: user.role };
                 let accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
                 res.cookie("jwt", accessToken);
                 //and then pass onto the next middleware
@@ -54,7 +54,7 @@ exports.persistence = function (req, res, next) {
             // Verify the token to extract payload data
             const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
             // Attach user info to locals so it can be accessed in views
-            res.locals.user = payload.username;
+            res.locals.user = { username: payload.username, role: payload.role };
         } catch (err) {
             // Optional: handle errors (e.g., token expired or invalid)
             res.locals.user = null;
@@ -63,4 +63,24 @@ exports.persistence = function (req, res, next) {
         res.locals.user = null;
     }
     next();
+};
+
+
+exports.authorizeRole = function(allowedRoles) {
+    return function (req, res, next) {
+        const token = req.cookies.jwt;
+        if (!token) {
+            return res.status(403).send("Unauthorized: No token provided");
+        }
+        try {
+            const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+            if (allowedRoles.includes(payload.role)) {
+                next();
+            } else {
+                return res.status(403).send("Forbidden: You do not have access to this resource");
+            }
+        } catch (err) {
+            return res.status(401).send("Invalid token");
+        }
+    }
 };
