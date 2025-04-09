@@ -214,24 +214,28 @@
                     <div class="col-lg-4 mt-2-9">
                         <div class="ms-xl-4">
                             <div class="sidebar">
-                                <!-- Enroll Widget -->
-                                <div class="widget bg-light px-1-6 py-1-9 rounded">
-                                    <h4 class="border-bottom pb-4 mb-1-9">Book This Course</h4>
-                                    <p class="mb-3">
-                                        Ready to join the Yoga for Beginners Course? 
-                                        If you've not got an account, the email you enter will be used to create one for you.
-                                    </p>
-                                    <!-- Adjust the href to point to your enrollment or booking page/route -->
-                                    <a 
-                                        href="/enroll?course=yoga-beginners" 
-                                        class="btn-style1"
-                                        data-course-id="1234" 
-                                        data-require-login="true"
-                                    >
-                                        Enroll Now
-                                    </a>
-                                </div>
-                                <!-- End Enroll Widget -->
+                                <!-- Enrol Widget -->
+                                <form method="get" role="form" action="/courses/enrol">
+                                    <div class="widget bg-light px-1-6 py-1-9 rounded">
+                                        <h4 class="border-bottom pb-4 mb-1-9">Book This Course</h4>
+                                        <p class="mb-3">
+                                            Ready to join this Course? 
+                                            If you've not got an account, the email you enter will be used to create one for you.
+                                        </p>
+                                        <!-- Adjust the href to point to your enrollment or booking page/route -->
+                                        <button 
+                                            type="submit"
+                                            name="courseId"
+                                            value="{{courses.id}}"
+                                            class="btn-style1 wow fadeIn"
+                                            data-wow-delay="100ms"
+                                        >
+                                            Enrol Now
+                                        </button>
+                                    </div>
+                                </form>
+                                
+                                <!-- End Enrol Widget -->
                                 {{! <div class="widget widget_search bg-light px-1-6 py-1-9 rounded">
                                     <h4 class="border-bottom pb-4 mb-1-9">Search</h4>
                                     <form action="#!">

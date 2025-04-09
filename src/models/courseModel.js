@@ -17,6 +17,8 @@ class Course {
       this.classes = Array.isArray(data.classes)
         ? data.classes.map(item => new classModel(item))
         : [];
+      //defaults to empty array
+      this.enrolledStudents = data.enrolledStudents || [];
     }
   
     // Example helper: compute a short summary if needed

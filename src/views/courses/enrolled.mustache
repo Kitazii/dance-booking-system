@@ -1,0 +1,39 @@
+<html lang="en">
+  {{> partials/head}}
+  <body>
+    <!-- PAGE LOADING -->
+    <div id="preloader"></div>
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+      <!-- NAVIGATION -->
+      {{> partials/nav}} 
+      
+      <!-- ENROLLMENT CONFIRMATION -->
+      <section class="theme-overlay-dark-blue left-overlay-dark form-top-position" data-overlay-dark="6"></section>
+      <section class="account-section-text-align">
+        <h2>Enrollment Confirmation</h2>
+        <div id="confirmationContent" class="account-div-styling">
+          <p>Thank you for enrolling in {{courses.name}}!</p>
+          <p>Your enrollment details:</p>
+          <ul>
+            <li>Forename: {{enrolledStudent.forename}}</li>
+            <li>Surname: {{enrolledStudent.surname}}</li>
+            <li>Email: {{enrolledStudent.email}}</li>
+          </ul>
+          <!-- Optionally, list all enrolled students if needed -->
+          <h3>All Enrolled Students</h3>
+          <ul>
+            {{#courses.enrolledStudents}}
+              <li>{{forename}} {{surname}} - {{email}}</li>
+            {{/courses.enrolledStudents}}
+          </ul>
+        </div>
+      </section>
+      
+      <!-- FOOTER -->
+      {{> partials/footer}}
+    </div>
+    <!-- Scroll to top and tail partials -->
+    {{> partials/tail}}
+  </body>
+</html>

@@ -20,7 +20,13 @@ exports.login = function(req, res, next) {
         bcrypt.compare(password, user.password, function(err, result) {
             if (result) {
                 //if user exists we will write code to create a JWT here
-                let payload = { username: user.username, role: user.role };
+                let payload = {
+                    username: user.username,
+                    role: user.role,
+                    forename: user.forename,
+                    surname: user.surname,
+                    email: user.email
+                };
                 let accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
                 res.cookie("jwt", accessToken);
                 //and then pass onto the next middleware
@@ -54,7 +60,13 @@ exports.persistence = function (req, res, next) {
             // Verify the token to extract payload data
             const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
             // Attach user info to locals so it can be accessed in views
-            res.locals.user = { username: payload.username, role: payload.role };
+            res.locals.user = {
+                username: payload.username,
+                role: payload.role,
+                forename: payload.forename,
+                surname: payload.surname,
+                email: payload.email
+            };
         } catch (err) {
             // Optional: handle errors (e.g., token expired or invalid)
             res.locals.user = null;
