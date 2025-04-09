@@ -19,6 +19,7 @@ class Course {
         : [];
       //defaults to empty array
       this.enrolledStudents = data.enrolledStudents || [];
+      this.attendedStudents = data.attendedStudents || [];
     }
   
     // Example helper: compute a short summary if needed

@@ -13,10 +13,22 @@
 
         <!-- ENROLL FORM
         ================================================== -->
-        <section class="theme-overlay-dark-blue left-overlay-dark form-top-position" data-overlay-dark="6"></section>
+        <section class="page-title-section bg-img cover-background theme-overlay-dark-blue left-overlay-dark top-position" data-overlay-dark="6" data-background="img/bg/bg-05.jpg">
+            <div class="container">
+                <div class="row text-center align-items-center justify-content-center">
+                    <div class="col-md-12">
+                        <h1 class="text-white mb-1-6">Enrol in {{courses.name}} course</h1>
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li>Enrol in {{courses.name}} course</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
         <section class="account-section-text-align">
-            <h2>Enrol in {{courses.name}} course</h2>
-            <div id="formContent" class="account-div-styling">
+            <div id="formContent" class="account-div-styling booking-form p-4 p-md-5 bg-white shadow-sm border-radius-5">
+                <h5 class="mb-4">Confirm Your Enrollment</h5>
                 <!-- Enroll Form -->
                 <form method="post" role ="form" action="/courses/enrolled">
                 <input type="hidden" id="courseId" name="courseId" value="{{courses.id}}">
@@ -43,7 +55,7 @@
 
                     <button 
                         type="submit"
-                        class="btn-style1 primary small wow fadeIn"
+                        class="btn-style1 primary small wow fadeIn w-100"
                         data-wow-delay="100ms"
                     >
                         ENROL

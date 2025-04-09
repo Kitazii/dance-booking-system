@@ -17,6 +17,10 @@ class CourseService {
     return courseRepo.postEnrolledData(courseId, enrollmentData);
   }
 
+  postAttendedData(courseId, attendenceData) {
+    return courseRepo.postAttendedData(courseId, attendenceData);
+  }
+
   getClassById(classId) {
     return courseRepo.getClassById(classId);
   }

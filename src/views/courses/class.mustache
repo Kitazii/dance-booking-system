@@ -55,9 +55,19 @@
                                 </div>
                             </div>
                             <div class="col-lg-5 col-xl-4 mt-2-9 order-1 order-lg-2">
+                            <form method="get" role="form" action="/courses/attend">
                                 <div class="mb-1-9">
-                                    <a href="contact.html" class="btn-style1 d-block">Book attendance</a>
+                                 <button 
+                                            type="submit"
+                                            name="classId"
+                                            value="{{currentClass.classId}}"
+                                            class="btn-style1 d-block wow fadeIn"
+                                            data-wow-delay="100ms"
+                                        >
+                                        Book attendance
+                                        </button>
                                 </div>
+                            </form>
                                 <div class="bg-dark p-2-6">
                                     <div>
                                         <ul class="list-unstyled mb-0">

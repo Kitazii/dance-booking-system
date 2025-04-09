@@ -167,6 +167,31 @@ class CourseRepository {
         });
     }
 
+    postAttendedData(courseId, attendenceData) {
+        return new Promise((resolve, reject) => {
+            this.db.update(
+              { _id: courseId },
+              { $push: { attendedStudents: attendenceData } },
+              {},
+              (err, numReplaced) => {
+                if (err) {
+                  reject(err);
+                } else {
+                    console.log("document updated", numReplaced);
+                  // After updating, fetch the updated course document.
+                  this.db.findOne({ _id: courseId }, (err, course) => {
+                    if (err) {
+                      reject(err);
+                    } else {
+                      resolve(course ? new Course(course) : null);
+                    }
+                    console.log("document updated", numReplaced);
+                  });
+                }
+            });
+        });
+    }
+
     // Get class by Id
     getClassById(classId) {
         return new Promise((resolve, reject) => {
