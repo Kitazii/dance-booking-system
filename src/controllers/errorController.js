@@ -9,3 +9,15 @@ exports.error_500_page = function(err, req, res, next) {
     res.type('text/plain');
     res.send('Internal Server Error.');
 };
+
+exports.error_not_authorized_page = function(req, res) {
+    res.render('errors/notAuthorized', {
+        user: res.locals.user
+    });
+}
+
+exports.error_enrol_exists_page = function(req, res) {
+    res.render('errors/enrolExists', {
+        user: res.locals.user
+    });
+}

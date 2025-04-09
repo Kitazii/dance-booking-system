@@ -1,3 +1,4 @@
+const { redirect } = require('react-router-dom');
 const courseService = require('../service/courseService');
 
 exports.courses_page = function(req, res) {
@@ -50,6 +51,11 @@ exports.class_page = function(req, res) {
 };
 
 exports.course_enrol_page = function(req, res) {
+    const aUser = res.locals.user;
+    if (aUser && aUser.role !== 'student') {
+        return res.redirect('/notauth');
+    }
+    console.log('user', aUser);
     const courseId = req.query.courseId;
     console.log(courseId)
     courseService.getCourseById(courseId)
@@ -76,19 +82,29 @@ exports.course_enrolled_page = function(req, res) {
         username: theUser ? theUser.username : null
       };
 
-      console.log("user", theUser, "courseId", courseId, "enrol",enrollmentData)
-    courseService.postEnrolledData(courseId, enrollmentData)
-        .then((courses) => {
-            res.render('courses/enrolled', {
-                'courses': courses,
-                enrolledStudent: enrollmentData,
-                user: res.locals.user
-            });
-            console.log('promise resolved');
-            console.log(courses);
-        })
-        .catch((err) => {
-            console.error('promise rejected', err);
-            res.status(500).send('There was an error processing your enrollment.');
-    });
-};
+    console.log("user", theUser, "courseId", courseId, "enrol",enrollmentData)
+
+    courseService.getCourseById(courseId)
+    .then(course => {
+      if (course && course.enrolledStudents && course.enrolledStudents.some(student => student.email === enrollmentData.email)) {
+        console.log("Email already enrolled:", enrollmentData.email);
+        // Redirect to error page if the email is already enrolled.
+        return res.redirect('/enrolexists');
+      }
+     return courseService.postEnrolledData(courseId, enrollmentData);
+    }).then(updatedCourse => {
+        // If the course was already enrolled and we redirected, updatedCourse will be undefined.
+        if (!updatedCourse) return;
+        res.render('courses/enrolled', {
+          courses: updatedCourse,
+          enrolledStudent: enrollmentData,
+          user: res.locals.user
+        });
+        console.log('Enrollment updated successfully:');
+        console.log(updatedCourse);
+      })
+      .catch(err => {
+        console.error('Error processing enrollment:', err);
+        res.status(500).send('There was an error processing your enrollment.');
+      });
+  };
