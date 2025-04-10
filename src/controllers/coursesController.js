@@ -133,58 +133,58 @@ exports.course_enrolled_page = function(req, res) {
       });
   };
 
-  exports.course_attended_page = function(req, res) {
-    const theUser = res.locals.user;
-    const classId = req.body.classId;
-    const courseId = req.body.courseId;
-    const attendenceData= {
-        forename: null,
-        surname: null,
-        email: req.body.email,
-        username: theUser ? theUser.username : null
-      };
+exports.course_attended_page = function(req, res) {
+  const theUser = res.locals.user;
+  const classId = req.body.classId;
+  const courseId = req.body.courseId;
+  const attendenceData= {
+      forename: null,
+      surname: null,
+      email: req.body.email,
+      username: theUser ? theUser.username : null
+    };
 
-    console.log("user", theUser, "classId", classId, "attend", attendenceData)
+  console.log("user", theUser, "classId", classId, "attend", attendenceData)
 
-    courseService.getClassById(classId)
-    .then(course => {
-        if (!course.enrolledStudents
-            .some(student => student.email === attendenceData.email)) {
-          console.log("Student is not enrolled in the course:", attendenceData.email);
-          return res.redirect('/notenrolled');
-        }
-        course.enrolledStudents.find(student => {
-          if (student.email === attendenceData.email) {
-            attendenceData.forename = student.forename;
-            attendenceData.surname = student.surname;
-          }
-        });
-        // Locate the specific class object using the classId
-      const currentClass = course.classes.find(c => c.classId === classId);
-      if (currentClass && currentClass.attendedStudents &&
-        currentClass.attendedStudents.some(student => student.email === attendenceData.email)) {
-        console.log("Student already attended:", attendenceData.email);
-        // Redirect to error page if the email is already enrolled.
-        return res.redirect('/alreadyattended');
+  courseService.getClassById(classId)
+  .then(course => {
+      if (!course.enrolledStudents
+          .some(student => student.email === attendenceData.email)) {
+        console.log("Student is not enrolled in the course:", attendenceData.email);
+        return res.redirect('/notenrolled');
       }
-     return courseService.postAttendedData(courseId, classId, attendenceData);
-    }).then(updatedCourse => {
-        // If the course was already enrolled and we redirected, updatedCourse will be undefined.
-        if (!updatedCourse) return;
-
-        // Locate the specific class from the array
-        const currentClass = updatedCourse.classes.find(c => c.classId === classId);
-        res.render('courses/attended', {
-          currentClass: currentClass,
-          courses: updatedCourse,
-          attendedStudent: attendenceData,
-          user: res.locals.user
-        });
-        console.log('Attendance  updated successfully:');
-        console.log(updatedCourse);
-      })
-      .catch(err => {
-        console.error('Error processing attendance:', err);
-        res.status(500).send('There was an error processing your attendance.');
+      course.enrolledStudents.find(student => {
+        if (student.email === attendenceData.email) {
+          attendenceData.forename = student.forename;
+          attendenceData.surname = student.surname;
+        }
       });
-  };
+      // Locate the specific class object using the classId
+    const currentClass = course.classes.find(c => c.classId === classId);
+    if (currentClass && currentClass.attendedStudents &&
+      currentClass.attendedStudents.some(student => student.email === attendenceData.email)) {
+      console.log("Student already attended:", attendenceData.email);
+      // Redirect to error page if the email is already enrolled.
+      return res.redirect('/alreadyattended');
+    }
+    return courseService.postAttendedData(courseId, classId, attendenceData);
+  }).then(updatedCourse => {
+      // If the course was already enrolled and we redirected, updatedCourse will be undefined.
+      if (!updatedCourse) return;
+
+      // Locate the specific class from the array
+      const currentClass = updatedCourse.classes.find(c => c.classId === classId);
+      res.render('courses/attended', {
+        currentClass: currentClass,
+        courses: updatedCourse,
+        attendedStudent: attendenceData,
+        user: res.locals.user
+      });
+      console.log('Attendance  updated successfully:');
+      console.log(updatedCourse);
+    })
+    .catch(err => {
+      console.error('Error processing attendance:', err);
+      res.status(500).send('There was an error processing your attendance.');
+    });
+};

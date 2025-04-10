@@ -387,6 +387,29 @@ class CourseRepository {
         });
         });
     }
+
+    removeStudent(courseId, studentEmail) {
+        return new Promise((resolve, reject) => {
+            this.db.update(
+              { _id: courseId },
+              { $pull: { enrolledStudents: { email: studentEmail } } },
+              {},
+              (err, numAffected) => {
+                if (err) {
+                  return reject(err);
+                }
+                console.log("Student removed, records updated: ", numAffected);
+                // Fetch the updated course document after the change.
+                this.db.findOne({ _id: courseId }, (err, course) => {
+                  if (err) {
+                    return reject(err);
+                  }
+                  resolve(course ? new Course(course) : null);
+                });
+              }
+            );
+          });
+    }
 }
 
 module.exports = new CourseRepository();

@@ -28,6 +28,10 @@ class CourseService {
   getSchedule() {
     return courseRepo.getSchedule();
   }
+
+  removeStudent(courseId, studentEmail) {
+    return courseRepo.removeStudent(courseId, studentEmail);
+  }
 }
 
 module.exports = new CourseService();

@@ -17,5 +17,22 @@ exports.admin_dashboard_page = function(req, res) {
         })
         .catch((err) => {
             console.error('promise rejected', err);
-        });
+    });
+};
+
+exports.remove_student = function(req, res) {
+    const courseId = req.body.courseId;
+    const studentEmail = req.body.email;
+    courseService.removeStudent(courseId, studentEmail)
+        .then((courses) => {
+            res.render('adminDashboard/enrolled', {
+                'courses': courses,
+                user: res.locals.user
+            });
+            console.log('promise resolved');
+            console.log(courses);
+        })
+        .catch((err) => {
+            console.error('promise rejected', err);
+    });
 };

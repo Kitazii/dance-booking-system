@@ -38,7 +38,7 @@
                                 <th>Email</th>
                                 <th>First Name</th>
                                 <th>Last Name</th>
-                                <th>Comments</th>
+                                <th>Remove</th>
                                 <!-- Add more columns if needed, e.g. Phone, etc. -->
                                 </tr>
                             </thead>
@@ -46,11 +46,17 @@
                                 {{#courses}}
                                 {{#enrolledStudents}}
                                     <tr>
-                                    <!-- Notice ../ (dot-dot) refers to the parent object (the Course) -->
-                                    <td>{{name}}</td>
-                                    <td>{{email}}</td>
-                                    <td>{{forename}}</td>
-                                    <td>{{surname}}</td>
+                                        <td>{{name}}</td>
+                                        <td>{{email}}</td>
+                                        <td>{{forename}}</td>
+                                        <td>{{surname}}</td>
+                                        <td>
+                                            <form id="removeForm-{{email}}" method="post" action="/adminDashboard/enrolled">
+                                                <input type="hidden" id = "courseId" name="courseId" value="{{id}}">
+                                                <input type="hidden" id = "email" name="email" value="{{email}}">
+                                                <button type="button" class="btn-remove" data-email="{{email}}">Remove</button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 {{/enrolledStudents}}
 
@@ -86,7 +92,30 @@
     <!-- all js include start -->
 
    {{> partials/tail}}
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    document.querySelectorAll('.btn-remove').forEach(button => {
+        button.addEventListener('click', function() {
+        // Obtain a reference to the form that needs to be submitted
+        const email = this.getAttribute('data-email');
+        const form = document.getElementById('removeForm-' + email);
+        
+        // Display the confirmation pop-up
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This will remove the student from the course.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, remove it!',
+            cancelButtonText: 'Cancel'
+        }).then((result) => {
+            if (result.isConfirmed) {
+            form.submit();
+            }
+        });
+        });
+    });
+    </script>
     <!-- all js include end -->
 </body>
 </html>
