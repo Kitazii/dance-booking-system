@@ -57,14 +57,14 @@
                   <input type="hidden" id ="classId" name="courseId" value="{{courses.id}}">
 
                   {{^user}}
-                    <div class="form-group mb-3">
+                    {{! <div class="form-group mb-3">
                       <label for="forename" class="mb-1">Forename</label>
                       <input type="text" class="form-control" id="forename" name="forename" placeholder="Forename" required>
                     </div>
                     <div class="form-group mb-3">
                       <label for="surname" class="mb-1">Surname</label>
                       <input type="text" class="form-control" id="surname" name="surname" placeholder="Surname" required>
-                    </div>
+                    </div> }}
                     <div class="form-group mb-3">
                       <label for="email" class="mb-1">Email</label>
                       <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
@@ -72,14 +72,14 @@
                   {{/user}}
 
                   {{#user}}
-                    <div class="form-group mb-3">
+                    {{! <div class="form-group mb-3">
                       <label for="forename" class="mb-1">Forename</label>
-                      <input type="text" class="form-control" id="forename" name="forename" value="{{user.forename}}" readonly>
+                      <input type="text" class="form-control" id="forename" name="forename" value="{{user.forename}}{{!" readonly>
                     </div>
                     <div class="form-group mb-3">
                       <label for="surname" class="mb-1">Surname</label>
-                      <input type="text" class="form-control" id="surname" name="surname" value="{{user.surname}}" readonly>
-                    </div>
+                      <input type="text" class="form-control" id="surname" name="surname" value="{{user.surname}}{{!" readonly>
+                    </div> }}
                     <div class="form-group mb-3">
                       <label for="email" class="mb-1">Email</label>
                       <input type="email" class="form-control" id="email" name="email" value="{{user.email}}" readonly>

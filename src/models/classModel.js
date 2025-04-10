@@ -9,6 +9,9 @@ class Class {
       this.time = data.time || null;
       this.location = data.location || null;
       this.price = data.price || null;
+
+      this.attendedStudents  = data.attendedStudents || [];
+
     }
   
     // Add methods that encapsulate behavior specific to a class, if needed.

@@ -167,27 +167,60 @@ class CourseRepository {
         });
     }
 
-    postAttendedData(courseId, attendenceData) {
+    postAttendedData(courseId, classId, attendenceData) {
         return new Promise((resolve, reject) => {
-            this.db.update(
-              { _id: courseId },
-              { $push: { attendedStudents: attendenceData } },
-              {},
-              (err, numReplaced) => {
+             // Find the course document by courseId.
+            this.db.findOne({ _id: courseId }, (err, course) => {
                 if (err) {
-                  reject(err);
-                } else {
-                    console.log("document updated", numReplaced);
-                  // After updating, fetch the updated course document.
-                  this.db.findOne({ _id: courseId }, (err, course) => {
+                return reject(err);
+                }
+                if (!course) {
+                return reject(new Error('Course not found'));
+                }
+        
+                // Ensure the "classes" array exists.
+                if (!Array.isArray(course.classes)) {
+                return reject(new Error('No classes available in this course.'));
+                }
+        
+                // Locate the index of the class with the matching classId.
+                const classIndex = course.classes.findIndex(c => c.classId === classId);
+                if (classIndex === -1) {
+                return reject(new Error('Class not found'));
+                }
+        
+                // Ensure attendedStudents exists on the class object.
+                if (!course.classes[classIndex].attendedStudents) {
+                course.classes[classIndex].attendedStudents = [];
+                }
+        
+                // Check for duplicate attendance here if needed (this check might have been done in the controller).
+                if (course.classes[classIndex].attendedStudents.some(student => student.email === attendenceData.email)) {
+                return reject(new Error('Student already attended this class'));
+                }
+
+                // Push the attendance data into the class's attendedStudents array.
+                course.classes[classIndex].attendedStudents.push(attendenceData)
+  
+                this.db.update(
+                { _id: courseId},
+                course,
+                {},
+                (err, numReplaced) => {
                     if (err) {
-                      reject(err);
-                    } else {
-                      resolve(course ? new Course(course) : null);
+                    reject(err);
                     }
                     console.log("document updated", numReplaced);
-                  });
-                }
+                    // After updating, fetch the updated course document.
+                    this.db.findOne({ _id: courseId }, (err, updatedCourse) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(updatedCourse  ? new Course(updatedCourse) : null);
+                    }
+                    console.log("document updated", numReplaced);
+                    });
+                });
             });
         });
     }

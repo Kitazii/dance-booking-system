@@ -21,3 +21,15 @@ exports.error_enrol_exists_page = function(req, res) {
         user: res.locals.user
     });
 }
+
+exports.error_already_attended_page = function(req, res) {
+    res.render('errors/alreadyattended', {
+        user: res.locals.user
+    });
+}
+
+exports.error_not_enrol_page = function(req, res) {
+    res.render('errors/notenrolled', {
+        user: res.locals.user
+    });
+}

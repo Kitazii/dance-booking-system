@@ -23,9 +23,9 @@
           <!-- Optionally, list all enrolled students if needed -->
           <h3>All Attended Students</h3>
           <ul>
-            {{#courses.attendedStudents}}
+            {{#currentClass.attendedStudents}}
               <li>{{forename}} {{surname}} - {{email}}</li>
-            {{/courses.attendedStudents}}
+            {{/currentClass.attendedStudents}}
           </ul>
         </div>
       </section>
