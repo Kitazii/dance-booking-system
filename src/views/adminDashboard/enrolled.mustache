@@ -1,0 +1,92 @@
+<html lang="en">
+{{> partials/head}}
+<body>
+    <!-- PAGE LOADING
+    ================================================== -->
+    <div id="preloader"></div>
+    <!-- MAIN WRAPPER
+    ================================================== -->
+    <div class="main-wrapper">
+     <!-- NAVIGATION
+        ================================================== -->
+        {{> partials/nav}} 
+
+        <!-- ENROLL FORM
+        ================================================== -->
+        <section class="theme-overlay-dark-blue left-overlay-dark form-top-position" data-overlay-dark="6"></section>
+        <section class="account-section-text-align">
+            
+            <div id="formContent" class="booking-form p-4 p-md-5 bg-white shadow-sm border-radius-5">
+                <div class="container-fluid">
+                    <div class="row">
+                        <!-- SIDEBAR (Left Nav) -->
+                        <div class="col-md-3 col-lg-2 bg-light p-3" id="adminSidebar">
+                        {{> partials/adminSidebar }}
+                        </div>
+                        <!-- /SIDEBAR -->
+
+                        <!-- MAIN CONTENT: Enrolled Students -->
+                        <div class="col-md-9 col-lg-10">
+                        <h1 class="mb-3">Admin Dashboard</h1>
+                        <hr />
+                        <h2 class="mb-3">Enrolled Students</h2>
+                        <div class="table-responsive mb-5">
+                            <table class="table table-bordered table-hover align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                <th>Course Name</th>
+                                <th>Email</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Comments</th>
+                                <!-- Add more columns if needed, e.g. Phone, etc. -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#courses}}
+                                {{#enrolledStudents}}
+                                    <tr>
+                                    <!-- Notice ../ (dot-dot) refers to the parent object (the Course) -->
+                                    <td>{{name}}</td>
+                                    <td>{{email}}</td>
+                                    <td>{{forename}}</td>
+                                    <td>{{surname}}</td>
+                                    </tr>
+                                {{/enrolledStudents}}
+
+                                <!-- If a course has no enrolledStudents yet, you can handle it: -->
+                                {{^enrolledStudents}}
+                                    <tr>
+                                    <td colspan="5">No students enrolled for "{{name}}" yet.</td>
+                                    </tr>
+                                {{/enrolledStudents}}
+
+                                {{/courses}}
+                            </tbody>
+                            </table>
+                        </div>
+                        </div>
+                        <!-- /MAIN CONTENT -->
+
+                    </div>
+                </div>
+            </div>
+         </section>
+        <div>
+        <!-- FOOTER
+            ================================================== -->
+            {{> partials/footer}}
+        </div>
+    </div>
+
+    <!-- start scroll to top -->
+    <a href="#!" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+    <!-- end scroll to top -->
+
+    <!-- all js include start -->
+
+   {{> partials/tail}}
+
+    <!-- all js include end -->
+</body>
+</html>

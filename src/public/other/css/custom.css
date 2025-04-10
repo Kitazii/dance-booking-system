@@ -39,3 +39,30 @@
     display: inline-block;
     text-align: left;
 }
+
+.btn-nav {
+  /* match other nav properties */
+  background: none;
+  border: none;
+  padding: 21px 0.3rem;
+  margin: 0;
+  box-sizing: border-box;
+  
+  position: relative;
+  display: block;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+
+  transition-duration: 500ms;
+
+
+  font-size: 15px;
+  font-weight: 800;
+  color: #fff;
+  text-decoration: none;
+
+}
+
+.ml-8{
+    margin-left: 8px;
+}

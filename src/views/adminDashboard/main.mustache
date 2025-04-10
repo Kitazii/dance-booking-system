@@ -1,0 +1,49 @@
+<html lang="en">
+{{> partials/head}}
+<body>
+    <!-- PAGE LOADING
+    ================================================== -->
+    <div id="preloader"></div>
+    <!-- MAIN WRAPPER
+    ================================================== -->
+    <div class="main-wrapper">
+     <!-- NAVIGATION
+        ================================================== -->
+        {{> partials/nav}} 
+
+        <!-- ENROLL FORM
+        ================================================== -->
+        <section class="theme-overlay-dark-blue left-overlay-dark form-top-position" data-overlay-dark="6"></section>
+        <section class="account-section-text-align">
+             <div id="formContent" class="booking-form p-4 p-md-5 bg-white shadow-sm border-radius-5">
+                <div class="container-fluid">
+                    <div class="row">
+                        <h1>Welcome to the Admin Dashboard</h1>
+                        <hr />
+                        <!-- SIDEBAR (Left Nav) -->
+                        <div class="col-md-3 col-lg-2 bg-light p-3" id="adminSidebar">
+                        {{> partials/adminSidebar }}
+                        </div>
+                        <!-- /SIDEBAR -->
+                    </div>
+                </div>
+            </div>
+         </section>
+        <div>
+        <!-- FOOTER
+            ================================================== -->
+            {{> partials/footer}}
+        </div>
+    </div>
+
+    <!-- start scroll to top -->
+    <a href="#!" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+    <!-- end scroll to top -->
+
+    <!-- all js include start -->
+
+   {{> partials/tail}}
+
+    <!-- all js include end -->
+</body>
+</html>

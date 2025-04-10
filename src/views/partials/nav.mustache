@@ -51,7 +51,18 @@
                                 </li>
                                 <li>
                                     <a href="/courses">Courses</a>
-                                </li>        
+                                </li>
+                                {{#user}} 
+                                <form method="get" action="/{{user.role}}Dashboard/main" role="form" class="ml-8">
+                                    <li>
+                                        <button 
+                                        type="submit" 
+                                        class="btn-nav wow fadeIn w-100"
+                                        data-wow-delay="100ms"
+                                        >Dashboard</button>
+                                    </li>
+                                 </form>
+                                {{/user}}    
                             </ul>
                             <!-- end menu area -->
 

@@ -1,4 +1,3 @@
-const { redirect } = require('react-router-dom');
 const courseService = require('../service/courseService');
 
 exports.courses_page = function(req, res) {

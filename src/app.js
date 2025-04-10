@@ -15,6 +15,7 @@ const homeRouter = require('./routes/homeRoutes');
 const coursesRouter = require('./routes/coursesRoutes');
 const servicesRouter = require('./routes/servicesRoutes');
 const userRouter = require('./routes/userRoutes');
+const adminRouter = require('./routes/adminRoutes');
 const errorRouter = require('./routes/errorRoutes');
 
 const public = path.join(__dirname, 'public');
@@ -31,11 +32,13 @@ app.engine('mustache', mustache());
 app.set('view engine', 'mustache');
 
 //use the routes
-app.use('/', homeRouter);
 app.use('/courses', coursesRouter);
 app.use('/services', servicesRouter);
+app.use('/adminDashboard', adminRouter);
+app.use('/', homeRouter);
 app.use('/', userRouter);
 app.use('/', errorRouter);
+
 
 app.listen(3000, () => {
     console.log('Server started on http://localhost:3000');
