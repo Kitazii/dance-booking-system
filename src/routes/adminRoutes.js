@@ -5,9 +5,18 @@ const router = express.Router();
 const adminController = require('../controllers/adminController');
 const errorController = require('../controllers/errorController');
 
-router.get('/main', persistence, authorizeRole('admin'), adminController.main_dashboard_page);
-router.get('/enrolled', persistence, authorizeRole('admin'), adminController.admin_dashboard_page);
-router.post('/enrolled', persistence, authorizeRole('admin'), adminController.remove_student);
+router.get('/main', persistence, authorizeRole('admin'), adminController.main_dashboard);
+
+router.get('/enrolled', persistence, authorizeRole('admin'), adminController.enrolled_dashboard);
+router.post('/enrolled', persistence, authorizeRole('admin'), adminController.remove_enrolled_student);
+
+router.get('/attended', persistence, authorizeRole('admin'), adminController.attended_dashboard);
+router.post('/attended', persistence, authorizeRole('admin'), adminController.remove_attended_student);
+
+router.get('/courses', persistence, authorizeRole('admin'), adminController.courses_dashboard);
+router.post('/courses', persistence, authorizeRole('admin'), adminController.delete_course);
+router.get('/newCourse', persistence, authorizeRole('admin'), adminController.addCourse_form);
+router.post('/newCourse/add', persistence, authorizeRole('admin'), adminController.addedCourse);
 
 router.use(function(err, req, res, next) {
     errorController.error_404_page(err, req, res, next);

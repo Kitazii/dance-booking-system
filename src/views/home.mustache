@@ -361,7 +361,7 @@
 
         <!-- TIMETABLE
         ================================================== -->
-        <section>
+        {{! <section>
             <div class="container">
                 <div class="text-center">
                     <span class="sec-title3 text-secondary">Timetable</span>
@@ -385,31 +385,31 @@
                                 </thead>
                                 <tbody>
                                 {{#schedule.rows}}
-                                    <tr>
-                                        <td class="align-middle">{{time}}</td>
-                                        {{#cells}}
-                                        {{#empty}}
+                                    {{!<tr>
+                                        <td class="align-middle">{{time}}{{!</td>
+                                        {{#cells}}{{!
+                                        {{#empty}}{{!
                                             <td class="bg-light"></td>
                                         {{/empty}}
-                                        {{#content}}
+                                        {{!{{#content}}{{!
                                             <td>
-                                            <span class="text-secondary font-weight-700">{{course}}</span>
-                                            {{#class}}
-                                                <span class="text-light-grey-2">{{class}}</span>
-                                            {{/class}}
-                                            <div class="display-31 text-light-gray">{{teacher}}</div>
+                                            <span class="text-secondary font-weight-700">{{course}}{{!</span>
+                                            {{#class}}{{!
+                                                <span class="text-light-grey-2">{{class}}{{!</span>
+                                            {{/class}}{{!
+                                            <div class="display-31 text-light-gray">{{teacher}}{{!</div>
                                             </td>
-                                        {{/content}}
-                                        {{/cells}}
+                                        {{/content}}{{!
+                                        {{/cells}}{{!
                                     </tr>
-                                {{/schedule.rows}}
+                                {{/schedule.rows}}{{!
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </section> }}
 
         <!-- TESTIMONIAL
         ================================================== -->
