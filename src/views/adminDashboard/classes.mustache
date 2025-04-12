@@ -29,58 +29,65 @@
                         <div class="col-md-9 col-lg-10">
                         <h1 class="mb-3">Admin Dashboard</h1>
                         <hr />
-                        <h2 class="mb-3">Courses</h2>
+                        <h2 class="mb-3">Classes</h2>
                         <div class="table-responsive mb-5">
                             <table class="table table-bordered table-hover align-middle">
                             <thead class="table-dark">
                                 <tr>
-                                <th>Course Name</th>
+                                <th>Class Title</th>
                                 <th>Description</th>
-                                <th>Category</th>
-                                <th>Course Lead</th>
-                                <th>Duration</th>
-                                <th>Difficulty</th>
-                                <th>Sessions</th>
-                                <th>Type</th>
+                                <th>Summary</th>
+                                <th>Teacher</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Location</th>
+                                <th>Price</th>
                                 <th>Delete</th>
+                                <th>Update</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{#courses}}
+                                {{#classes}}
                                     <tr>
-                                        <td>{{name}}</td>
+                                        <td>{{title}}</td>
                                         <td>{{description}}</td>
-                                        <td>{{category}}</td>
-                                        <td>{{courseLead}}</td>
-                                        <td>{{duration}}</td>
-                                        <td>{{difficulty}}</td>
-                                        <td>{{sessions}}</td>
-                                        <td>{{type}}</td>
-                                        <form id="removeForm-{{name}}" method="post" action="/adminDashboard/courses">
+                                        <td>{{summary}}</td>
+                                        <td>{{teacher}}</td>
+                                        <td>{{date}}</td>
+                                        <td>{{time}}</td>
+                                        <td>{{location}}</td>
+                                        <td>{{price}}</td>
+                                        <form id="removeForm-{{title}}" method="post" action="/adminDashboard/classes">
                                             <td>
-                                                <input type="hidden" id ="courseId" name="courseId" value="{{id}}">
-                                                <button type="button" class="btn-delete" data-name="{{name}}">Delete</button>
+                                                <input type="hidden" id ="classId" name="classId" value="{{classId}}">
+                                                <button type="button" class="btn-delete" data-name="{{title}}">Delete</button>
+                                            </td>
+                                        </form>
+                                        <form method="get" action="/adminDashboard/classes">
+                                            <td>
+                                                <input type="hidden" id ="classId" name="classId" value="{{classId}}">
+                                                <button submit="button">Update</button>
                                             </td>
                                         </form>
                                         
                                     </tr>
-                                {{/courses}}
-                                {{^courses}}
+                                {{/classes}}
+                                {{^classes}}
                                     <tr>
-                                    <td colspan="5">No students enrolled for "{{name}}" yet.</td>
+                                    <td colspan="5">No students attended for "{{title}}" yet.</td>
                                     </tr>
-                                {{/courses}}
+                                {{/classes}}
                               
                             </tbody>
                             </table>
-                            <form method="get" action="/adminDashboard/newCourse">
+                            <form method="get" action="/adminDashboard/newClass">
                                 <div class="mb-4">
                                     <button 
                                         type="submit" 
                                         class="btn-style1 primary small wow fadeIn w-100"
                                         data-wow-delay="100ms"
                                     >
-                                    (+) Add Course
+                                    (+) Add Class
                                     </button>
                                 </div>
                             </form>

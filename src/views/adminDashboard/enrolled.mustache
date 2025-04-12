@@ -54,7 +54,7 @@
                                             <form id="removeForm-{{email}}" method="post" action="/adminDashboard/enrolled">
                                                 <input type="hidden" id = "courseId" name="courseId" value="{{id}}">
                                                 <input type="hidden" id = "email" name="email" value="{{email}}">
-                                                <button type="button" class="btn-remove" data-email="{{email}}">Remove</button>
+                                                <button type="button" class="btn-delete" data-name="{{email}}">Remove</button>
                                             </form>
                                         </td>
                                     </tr>
@@ -92,7 +92,7 @@
     <!-- all js include start -->
 
    {{> partials/tail}}
-   {{> partials/popupStudent}}
+   {{> partials/popup}}
     <!-- all js include end -->
 </body>
 </html>

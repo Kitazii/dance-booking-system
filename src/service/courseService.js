@@ -48,6 +48,10 @@ class CourseService {
   addCourse(courseData) {
     return courseRepo.addCourse(courseData);
   }
+
+  deleteClass(classId, courseId) {
+    return courseRepo.deleteCourse(classId, courseId);
+  }
 }
 
 module.exports = new CourseService();

@@ -370,7 +370,7 @@ class CourseRepository {
                     return reject(err);
                 }
                 console.log("Course deleted, records removed: ", numRemoved);
-                // Resolve with the number of removed documents or a custom message.
+                // Resolve with the number of removed documents.
                 resolve(numRemoved);
                 }
             );
@@ -388,6 +388,24 @@ class CourseRepository {
                 console.log("Course added, new record: ", newDoc);
                 resolve(newDoc);
             });
+        });
+    }
+
+    deleteClass(classId, course_id) {
+        console.log("Deleting class with ID: ", classId);
+        return new Promise((resolve, reject) => {
+            this.db.remove(
+                { 'courses._id.classes.classId': classId },
+                {},
+                (err, numRemoved) => {
+                if (err) {
+                    return reject(err);
+                }
+                console.log("Class deleted, records removed: ", numRemoved);
+                // Resolve with the number of removed documents.
+                resolve(numRemoved);
+                }
+            );
         });
     }
 

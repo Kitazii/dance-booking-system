@@ -69,7 +69,7 @@ exports.remove_attended_student = function(req, res) {
     });
 };
 
-// COURSE
+// COURSES
 exports.courses_dashboard = function(req, res) {
     courseService.getAllCourses()
         .then((courses) => {
@@ -122,6 +122,36 @@ exports.addedCourse = function(req, res) {
         .then(() => {
             // After successfully adding the course, redirect to the courses dashboard.
             res.redirect('/adminDashboard/courses')
+
+        })
+        .catch((err) => {
+            console.error('promise rejected', err);
+    });
+};
+
+// CLASSES
+exports.classes_dashboard = function(req, res) {
+    courseService.getAllClasses()
+        .then((classes) => {
+            res.render('adminDashboard/classes', {
+                'classes': classes,
+                user: res.locals.user
+            });
+            console.log('promise resolved');
+        })
+        .catch((err) => {
+            console.error('promise rejected', err);
+    });
+};
+
+exports.delete_class = function(req, res) {
+    const classId = req.body.classId;
+    const courseId = req.body.courseId;
+    console.log("Here is the classsssID:", classId);
+    courseService.deleteClass(classId, courseId)
+      .then(() => {
+            // Redirect to GET route that loads all courses
+            res.redirect('/adminDashboard/classes');
 
         })
         .catch((err) => {

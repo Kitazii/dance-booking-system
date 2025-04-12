@@ -31,7 +31,7 @@ class UserRepository {
               email: 'ann@example.com',
               username: 'Ann',
               password: '$2b$10$bnEYkqZM.MhEF/LycycymOeVwkQONq8kuAUGx6G5tF9UtUcaYDs3S', // pre-hashed password
-              role: 'staff'
+              role: 'admin'
             }),
             new User({
               forename: 'Peter',
