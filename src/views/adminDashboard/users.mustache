@@ -11,7 +11,7 @@
         ================================================== -->
         {{> partials/nav}} 
 
-        <!-- COURSES PAGE
+        <!-- USERS DASHBOARD
         ================================================== -->
         <section class="theme-overlay-dark-blue left-overlay-dark form-top-position" data-overlay-dark="6"></section>
         <section class="account-section-text-align">
@@ -25,70 +25,57 @@
                         </div>
                         <!-- /SIDEBAR -->
 
-                        <!-- MAIN CONTENT: Courses -->
+                        <!-- MAIN CONTENT: Users -->
                         <div class="col-md-9 col-lg-10">
                         <h1 class="mb-3">Admin Dashboard</h1>
                         <hr />
-                        <h2 class="mb-3">Classes</h2>
+                        <h2 class="mb-3">Users</h2>
                         <div class="table-responsive mb-5">
                             <table class="table table-bordered table-hover align-middle">
                             <thead class="table-dark">
                                 <tr>
-                                <th>Class Title</th>
-                                <th>Description</th>
-                                <th>Summary</th>
-                                <th>Teacher</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Location</th>
-                                <th>Price</th>
+                                <th>Forename</th>
+                                <th>Surname</th>
+                                <th>Email</th>
+                                <th>Username</th>
+                                <th>Role</th>
                                 <th>Delete</th>
-                                <th>Update</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{#classes}}
+                                {{#users}}
                                     <tr>
-                                        <td>{{title}}</td>
-                                        <td>{{description}}</td>
-                                        <td>{{summary}}</td>
-                                        <td>{{teacher}}</td>
-                                        <td>{{date}}</td>
-                                        <td>{{time}}</td>
-                                        <td>{{location}}</td>
-                                        <td>{{price}}</td>
-                                        <form id="removeForm-{{title}}" method="post" action="/adminDashboard/classes">
-                                            <td>
-                                                <input type="hidden" id ="classId" name="classId" value="{{classId}}">
-                                                <input type="hidden" id ="courseId" name="courseId" value="{{courseId}}">
-                                                <button type="button" class="btn-delete" data-name="{{title}}">Delete</button>
-                                            </td>
-                                        </form>
-                                        <form method="get" action="/adminDashboard/updateClass/{{classId}}/{{courseId}}">
-                                            <td>
-                                                {{! <input type="hidden" id ="courseId" name="courseId" value="{{courseId}}{{!">}}
-                                                <button submit="button">Update</button>
-                                            </td>
-                                        </form>
+                                        <td>{{forename}}</td>
+                                        <td>{{surname}}</td>
+                                        <td>{{email}}</td>
+                                        <td>{{username}}</td>
+                                        <td>{{role}}</td>
+                                        <td>
+                                            <form id="removeForm-{{username}}" method="post" action="/adminDashboard/users">
+                                                <input type="hidden" id ="username" name="username" value="{{username}}">
+                                                <button type="button" class="btn-delete" data-name="{{username}}">Delete</button>
+                                            </form>
+                                        </td>
+                                        
                                         
                                     </tr>
-                                {{/classes}}
-                                {{^classes}}
+                                {{/users}}
+                                {{^users}}
                                     <tr>
-                                    <td colspan="5">No students attended for "{{title}}" yet.</td>
+                                    <td colspan="5">no user exists yet.</td>
                                     </tr>
-                                {{/classes}}
+                                {{/users}}
                               
                             </tbody>
                             </table>
-                            <form method="get" action="/adminDashboard/newClass">
+                            <form method="get" action="/adminDashboard/newUser">
                                 <div class="mb-4">
                                     <button 
                                         type="submit" 
                                         class="btn-style1 primary small wow fadeIn w-100"
                                         data-wow-delay="100ms"
                                     >
-                                    (+) Add Class
+                                    (+) Add User
                                     </button>
                                 </div>
                             </form>

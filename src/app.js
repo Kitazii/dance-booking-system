@@ -16,6 +16,7 @@ const coursesRouter = require('./routes/coursesRoutes');
 const servicesRouter = require('./routes/servicesRoutes');
 const userRouter = require('./routes/userRoutes');
 const adminRouter = require('./routes/adminRoutes');
+const studentRouter = require('./routes/studentRoutes');
 const errorRouter = require('./routes/errorRoutes');
 
 const public = path.join(__dirname, 'public');
@@ -35,6 +36,7 @@ app.set('view engine', 'mustache');
 app.use('/courses', coursesRouter);
 app.use('/services', servicesRouter);
 app.use('/adminDashboard', adminRouter);
+app.use('/studentDashboard', studentRouter);
 app.use('/', homeRouter);
 app.use('/', userRouter);
 app.use('/', errorRouter);

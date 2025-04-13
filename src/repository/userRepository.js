@@ -54,25 +54,29 @@ class UserRepository {
             }
             });
       });
-        // this.db.insert({ user: 'Peter', password: '$2b$10$I82WRFuGghOMjtu3LLZW9OAMrmYOlMZjEEkh.vx.K2MM05iu5hY2C', role: 'student' });
-        // this.db.insert({ user: 'Sam', password: '$2a$10$MvcoTBGzmVUJtcy9k.moZeMZXCszsBzVTxKY2Nzz4GL9i4s4vInj2', role: 'admin' });
-        // this.db.insert({ user: 'Ann', password: '$2b$10$bnEYkqZM.MhEF/LycycymOeVwkQONq8kuAUGx6G5tF9UtUcaYDs3S', role: 'staff' });
-        // return this;
     }
 
-    create(username, password, role = 'student') {
-        bcrypt.hash(password, saltRounds).then((hash) =>{
+    create(userData) {
+        bcrypt.hash(userData.password, saltRounds).then((hash) =>{
             const newUser = new User({
-                username: username,
+                forename: userData.forename || null,
+                surname: userData.surname || null,
+                email: userData.email || null,
+                username: userData.username || null,
                 password: hash,
-                role: role});
-            //var entry = { user: username, password: hash, role: role };
-            this.db.insert({ ...newUser }, (err, newDoc) => {
+                role: userData.role || 'student'
+              });
+
+            return new Promise((resolve, reject) => {
+                this.db.insert({ ...newUser }, (err, newDoc) => {
                 if (err) {
-                  console.log('Error inserting user:', username);
+                    console.log('Error inserting user:', userData.username);
+                    reject(err);
                 } else {
-                  console.log('New user created:', newDoc);
+                    console.log('New user created:', newDoc);
+                    resolve(newDoc);
                 }
+                });
             });
         });
     }
@@ -90,6 +94,69 @@ class UserRepository {
             }
         });
     }
+
+    lookupPromise(username) {
+        return new Promise((resolve, reject) => {
+          this.db.find({ username: username }, (err, entries) => {
+            console.log('lookup user:', username, 'entries:', entries);
+            if (err) {
+              return reject(err);
+            } else {
+              if (entries.length === 0) {
+                return resolve(null);
+              }
+              return resolve(entries[0]);
+            }
+          });
+        });
+      }
+
+    getAllUsers() {
+        return new Promise((resolve, reject) => {
+            this.db.find({}, function(err, users) {
+                if (err) {
+                    reject(err);
+                } else {
+                    const usersInstances = users.map(data => new User(data));
+                    resolve(usersInstances);
+                    //to see what the returned data looks like
+                    console.log('function all() returns: ', usersInstances);
+                }
+            });
+        });
+    }
+
+    deleteUser(username) {
+        console.log("Deleting user by username: ", username);
+        return new Promise((resolve, reject) => {
+            this.db.remove(
+                { username: username },
+                {},
+                (err, numRemoved) => {
+                if (err) {
+                    return reject(err);
+                }
+                console.log("user deleted, records removed: ", numRemoved);
+                // Resolve with the number of removed documents.
+                resolve(numRemoved);
+                }
+            );
+        });
+    }
+
+    // addUser(userData) {
+    //     console.log("Adding user with data: ", userData);
+    //     return new Promise((resolve, reject) => {
+    //         this.db.insert(userData, (err, newDoc) => {
+    //             if (err) {
+    //                 console.error("Error adding course: ", err);
+    //                 return reject(err);
+    //             }
+    //             console.log("Course added, new record: ", newDoc);
+    //             resolve(newDoc);
+    //         });
+    //     });
+    // }
 }
 
 module.exports = new UserRepository();

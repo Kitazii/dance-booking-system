@@ -1,0 +1,84 @@
+<html lang="en">
+{{> partials/head}}
+<body>
+    <!-- PAGE LOADING
+    ================================================== -->
+    <div id="preloader"></div>
+    <!-- MAIN WRAPPER
+    ================================================== -->
+    <div class="main-wrapper">
+     <!-- NAVIGATION
+        ================================================== -->
+        {{> partials/nav}} 
+
+        <!-- COURSES PAGE
+        ================================================== -->
+        <section class="theme-overlay-dark-blue left-overlay-dark form-top-position" data-overlay-dark="6"></section>
+        <section class="account-section-text-align">
+            <div id="formContent" class="booking-form p-4 p-md-5 bg-white shadow-sm border-radius-5">
+                <div class="container">
+                    <h1 class="mb-4">Add New Class</h1>
+                    <form method="post" action="/adminDashboard/newClass/add">
+                        <div class="form-group mb-3">
+                            <label for="courseId">Course ID:</label>
+                            <input type="text" class="form-control" id="courseId" name="courseId" placeholder="Enter course ID class will belong to" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="classId">Class ID:</label>
+                            <input type="text" class="form-control" id="classId" name="classId" placeholder="Enter new Class ID" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="title">Class Title:</label>
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Enter class/workshop title" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="description">Class Description:</label>
+                            <textarea class="form-control" id="description" name="description" rows="3" placeholder="Enter a brief description" required></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="summary">Class Summary:</label>
+                            <textarea class="form-control" id="summary" name="summary" rows="5" placeholder="Enter the class/workshop summary" required></textarea>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="teacher">Teacher:</label>
+                            <input type="text" class="form-control" id="teacher" name="teacher" placeholder="Enter class/workshop teacher" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="date">Date:</label>
+                            <input type="date" class="form-control" id="date" name="date" placeholder="Enter class date" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="time">Time:</label>
+                            <input type="time" class="form-control" id="time" name="time" placeholder="Enter class time" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="location">Location:</label>
+                            <input type="text" class="form-control" id="location" name="location" placeholder="Enter location" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="price">Price:</label>
+                            <input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="Enter price" required>
+                        </div>
+                        <button type="submit" class="btn-style1 primary small wow fadeIn w-100">Submit Course</button>
+                    </form>
+                </div>
+            </div>
+         </section>
+        <div>
+        <!-- FOOTER
+            ================================================== -->
+            {{> partials/footer}}
+        </div>
+    </div>
+
+    <!-- start scroll to top -->
+    <a href="#!" class="scroll-to-top"><i class="fas fa-angle-up" aria-hidden="true"></i></a>
+    <!-- end scroll to top -->
+
+    <!-- all js include start -->
+
+   {{> partials/tail}}
+
+    <!-- all js include end -->
+</body>
+</html>

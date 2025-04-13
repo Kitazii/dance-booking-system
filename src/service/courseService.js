@@ -29,9 +29,13 @@ class CourseService {
     return courseRepo.getClassById(classId);
   }
 
-  getSchedule() {
-    return courseRepo.getSchedule();
+  getClass(courseId, classId) {
+    return courseRepo.getClass(courseId, classId);
   }
+
+  // getSchedule() {
+  //   return courseRepo.getSchedule();
+  // }
 
   removeEnrolledStudent(courseId, studentEmail) {
     return courseRepo.removeEnrolledStudent(courseId, studentEmail);
@@ -45,12 +49,20 @@ class CourseService {
     return courseRepo.deleteCourse(courseId);
   }
 
-  addCourse(courseData) {
-    return courseRepo.addCourse(courseData);
+  addCourse(courseId,courseData) {
+    return courseRepo.addCourse(courseId,courseData);
   }
 
   deleteClass(classId, courseId) {
-    return courseRepo.deleteCourse(classId, courseId);
+    return courseRepo.deleteClass(classId, courseId);
+  }
+
+  addClass(classId, courseId) {
+    return courseRepo.addClass(classId, courseId);
+  }
+
+  updateClass(courseId, originalClassId, classData) {
+    return courseRepo.updateClass(courseId, originalClassId, classData);
   }
 }
 

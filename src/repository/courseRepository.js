@@ -391,23 +391,95 @@ class CourseRepository {
         });
     }
 
-    deleteClass(classId, course_id) {
-        console.log("Deleting class with ID: ", classId);
+    deleteClass(classId, courseId) {
         return new Promise((resolve, reject) => {
-            this.db.remove(
-                { 'courses._id.classes.classId': classId },
-                {},
-                (err, numRemoved) => {
+        // Use the update operation with $pull to remove the class from the classes array
+        this.db.update(
+            { _id: courseId },                       // Find the course by its _id field
+            { $pull: { classes: { classId: classId } } },  // Remove the class that matches classId from the classes array
+            {},
+            (err, numModified) => {
                 if (err) {
                     return reject(err);
                 }
-                console.log("Class deleted, records removed: ", numRemoved);
-                // Resolve with the number of removed documents.
-                resolve(numRemoved);
+                console.log("Class deleted, records modified: ", numModified);
+                // Resolve with the number of modified documents
+                resolve(numModified);
+                }
+            );
+        });   
+    }
+
+    addClass(courseId, classData) {
+        console.log("Adding class to course with ID:", courseId, "with data:", classData);
+        return new Promise((resolve, reject) => {
+            this.db.update(
+                { _id: courseId },               // Locate the course by its ID.
+                { $push: { classes: classData } }, // Append the new class to the classes array.
+                {},
+                (err, numModified) => {
+                    if (err) {
+                        console.error("Error adding class:", err);
+                        return reject(err);
+                    }
+                    console.log("Class added, records modified:", numModified);
+                    resolve(numModified);
                 }
             );
         });
     }
+
+    getClass(courseId, classId) {
+        return new Promise((resolve, reject) => {
+          // Find the course document by its _id field.
+          this.db.findOne({ _id: courseId }, (err, courseDoc) => {
+            if (err) {
+              return reject(err);
+            }
+            if (!courseDoc) {
+              return reject(new Error("Course not found"));
+            }
+            // Locate the class within the course's classes array.
+            const foundClass = courseDoc.classes.find(c => c.classId === classId);
+            if (!foundClass) {
+              return reject(new Error("Class not found"));
+            }
+            // Return the found class.
+            resolve(foundClass);
+          });
+        });
+      }
+
+      updateClass(courseId, originalClassId, classData) {
+        return new Promise((resolve, reject) => {
+            // First, fetch the whole course document.
+            this.db.findOne({ _id: courseId }, (err, course) => {
+              if (err) {
+                return reject(err);
+              }
+              if (!course) {
+                return reject(new Error("Course not found"));
+              }
+        
+              // Find the index of the class to update.
+              const index = course.classes.findIndex(c => c.classId === originalClassId);
+              if (index === -1) {
+                return reject(new Error("Class not found"));
+              }
+        
+              // Update that specific class element with the new data.
+              course.classes[index] = classData;
+        
+              // Now update the entire course document with the modified classes array.
+              this.db.update({ _id: courseId }, course, {}, (err, numModified) => {
+                if (err) {
+                  return reject(err);
+                }
+                resolve(numModified);
+              });
+            });
+          });
+        }
 
     // getSchedule() {
     //     return new Promise((resolve, reject) => {

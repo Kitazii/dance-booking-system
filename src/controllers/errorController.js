@@ -33,3 +33,9 @@ exports.error_not_enrol_page = function(req, res) {
         user: res.locals.user
     });
 }
+
+exports.user_exists_page = function(req, res) {
+    res.render('errors/userExists', {
+        user: res.locals.user
+    });
+}

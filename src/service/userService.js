@@ -5,13 +5,29 @@ class UserService {
     return userRepo.init();
   }
 
-  create(username, password, role = 'customer') {
-    return userRepo.create(username, password);
+  create(userData) {
+    return userRepo.create(userData);
   }
 
   lookup(user, cb) {
     return userRepo.lookup(user, cb);
   }
+
+  lookupPromise(user) {
+    return userRepo.lookupPromise(user);
+  }
+  
+  getAllUsers() {
+    return userRepo.getAllUsers();
+  }
+
+  deleteUser(username) {
+    return userRepo.deleteUser(username);
+  }
+
+  // addUser(userData) {
+  //   return userRepo.addUser(userData);
+  // }
 }
 
 module.exports = new UserService();

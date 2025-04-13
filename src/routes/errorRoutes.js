@@ -8,6 +8,7 @@ router.get('/notauth', persistence, errorController.error_not_authorized_page);
 router.get('/enrolexists', persistence, errorController.error_enrol_exists_page);
 router.get('/alreadyattended', persistence, errorController.error_already_attended_page);
 router.get('/notenrolled', persistence, errorController.error_not_enrol_page);
+router.get('/userexists', persistence, errorController.user_exists_page);
 
 router.use(function(err, req, res, next) {
     errorController.error_404_page(err, req, res, next);

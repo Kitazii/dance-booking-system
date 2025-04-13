@@ -26,17 +26,20 @@ exports.create_new_user = function(req, res) {
     const user = req.body.username;
     const password = req.body.password;
 
+    const userData = {
+        username: user,
+        password: password,
+    };
+
     if (!user || !password) {
-        res.send(401, 'no user or no password');
-        return;
+        return res.send(401, 'no user or no password');
     }
     userService.lookup(user, function(err, u) {
         if (u) {
-            res.send(401, 'user already exists', user);
-            return;
+            return res.redirect('/userExists');
         }
-        userService.create(user, password, 'customer');
+        userService.create(userData);
         console.log('register user', user, "password", password);
-        res.redirect('/login');
+        return res.redirect('/login');
     });
 };
