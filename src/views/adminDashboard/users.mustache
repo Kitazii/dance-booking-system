@@ -27,6 +27,12 @@
 
                         <!-- MAIN CONTENT: Users -->
                         <div class="col-md-9 col-lg-10">
+                        <!-- Error Popup Section -->
+                        {{#error}}
+                            <div class="alert alert-danger">
+                            {{error}}
+                            </div>
+                        {{/error}}
                         <h1 class="mb-3">Admin Dashboard</h1>
                         <hr />
                         <h2 class="mb-3">Users</h2>

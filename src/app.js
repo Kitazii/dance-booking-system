@@ -28,6 +28,25 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(public));
 
+// --- Set up session and flash messages ---
+const session = require('express-session');
+const flash = require('connect-flash');
+
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'yourSuperSecretKey', // Change for production
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Set secure: true if you are using HTTPS
+}));
+
+app.use(flash());
+// Optionally, make flash messages available in all templates
+// app.use((req, res, next) => {
+//   res.locals.flash = req.flash();
+//   next();
+// });
+// --- End session and flash setup ---
+
 const mustache = require('mustache-express');
 app.engine('mustache', mustache());
 app.set('view engine', 'mustache');

@@ -143,20 +143,6 @@ class UserRepository {
             );
         });
     }
-
-    // addUser(userData) {
-    //     console.log("Adding user with data: ", userData);
-    //     return new Promise((resolve, reject) => {
-    //         this.db.insert(userData, (err, newDoc) => {
-    //             if (err) {
-    //                 console.error("Error adding course: ", err);
-    //                 return reject(err);
-    //             }
-    //             console.log("Course added, new record: ", newDoc);
-    //             resolve(newDoc);
-    //         });
-    //     });
-    // }
 }
 
 module.exports = new UserRepository();

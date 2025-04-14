@@ -339,7 +339,6 @@ exports.added_user = function(req, res) {
         role: req.body.role,
         password: req.body.password
     };
-    console.log("Here is the userData:", userData)
      userService.lookupPromise(userData.username)
     .then((existingUser) => {
       if (existingUser) {
@@ -350,8 +349,6 @@ exports.added_user = function(req, res) {
       return userService.create(userData);
     })
     .then(() => {
-      console.log('User registered:', userData.username, "with password:", userData.password);
-      // After user creation, redirect to the users dashboard.
       res.redirect('/adminDashboard/users');
     })
     .catch((err) => {

@@ -26,6 +26,13 @@
                 </div>
             </div>
         </section>
+
+        {{#error}}
+            <div class="alert alert-danger">
+                {{error}}
+            </div>
+        {{/error}}
+        
         <section class="account-section-text-align">
             <div id="formContent" class="account-div-styling booking-form p-4 p-md-5 bg-white shadow-sm border-radius-5">
                 <h5 class="mb-4">Confirm Your Enrollment</h5>

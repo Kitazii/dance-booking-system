@@ -13,7 +13,7 @@ exports.login = function(req, res, next) {
         }
         if(!user) {
             console.log("user ", username, "not found");
-            return res.status(401).send();
+            return res.status(401).render('user/login', { error: "user does not exist" });
         }
 
         //compare provided password with stored password
@@ -32,11 +32,33 @@ exports.login = function(req, res, next) {
                 //and then pass onto the next middleware
                 next();
             } else {
-                return res.status(403).send();
+                return res.status(403).render('user/login', { error: "Incorrect credentials, please try again." });
             }
         });
     });
 };
+
+exports.register = function(req, res, next) {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    const userData = {
+        username: username,
+        password: password,
+    };
+
+    if (!username || !password) {
+        return res.send(401, 'no user or no password');
+    }
+    userService.lookup(username, function(err, u) {
+        if (u) {
+            return res.status(401).render('user/register', { error: "user exists" });
+        }
+        userService.create(userData);
+        console.log('register user', username, "password", password);
+        return next();
+    });
+}
 
 exports.verify = function (req, res, next) {
     let accessToken = req.cookies.jwt;
@@ -78,21 +100,30 @@ exports.persistence = function (req, res, next) {
 };
 
 
-exports.authorizeRole = function(allowedRoles) {
+exports.authorizeRole = function(allowedRoles, idParamName = 'courseId', redirectPath = '/courses/details') {
     return function (req, res, next) {
         const token = req.cookies.jwt;
+        const id = req.query[idParamName] || '';
+
+        // If there is no token, user is not logged in, so we treat them as guest (allowed)
         if (!token) {
-            return res.status(403).send("Unauthorized: No token provided");
+            //return res.status(403).send("Unauthorized: No token provided");
+            return next();
         }
         try {
             const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
             if (allowedRoles.includes(payload.role)) {
-                next();
+                return next();
             } else {
-                return res.status(403).send("Forbidden: You do not have access to this resource");
+            // Set a flash message for unauthorized access
+            req.flash('errorAuth', 'Unauthorized. Must be unregistered or registered student.');
+            // Redirect back to the details page without an error in the URL
+            return res.redirect(`${redirectPath}?${idParamName}=${id}`);
             }
         } catch (err) {
-            return res.status(401).send("Invalid token");
+            // Set a flash message for invalid token
+            req.flash('errorAuth', 'Invalid token.');
+            return res.redirect(`${redirectPath}?${idParamName}=${id}`);
         }
     }
 };

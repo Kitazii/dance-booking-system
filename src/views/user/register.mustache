@@ -14,13 +14,19 @@
         ================================================== -->
         {{> partials/nav}} 
 
-        <!-- PAGE TITLE
+        <!-- REGISTER PAGE
         ================================================== -->
         <section class="theme-overlay-dark-blue left-overlay-dark form-top-position" data-overlay-dark="6"></section>
         <section class="account-section-text-align">
             <h2>Register</h2>
             <div id="formContent" class="account-div-styling">
                 <!-- Register Form -->
+                <!-- Error Message Block -->
+                {{#error}}
+                    <div class="alert alert-danger">
+                        {{error}}
+                    </div>
+                {{/error}}
                 <form method="post" action="/register">
                     <div class="form-group">
                         {{user-name-error}}
