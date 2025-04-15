@@ -72,3 +72,30 @@
 .ml-8{
     margin-left: 8px;
 }
+
+
+.white-underline {
+    text-decoration: underline;
+    text-decoration-color: white;
+}
+
+/* icon sizes */
+.icon-process-resized {
+    width: 145px;
+    height: 185px;
+}
+
+.icon-services-resized {
+    width: 65px;
+    height: 65px;
+}
+
+.icon-counter-resized {
+    width: 80;
+    height: 80px;
+}
+
+.icon-offer-resized {
+    width: 50px;
+    height: 60px;
+}
