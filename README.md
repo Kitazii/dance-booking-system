@@ -1,8 +1,6 @@
 **Dance Course Booking System**
 
-Welcome to the Dance Course Booking System! This platform enables prospective students and administrators of a local dance organisation to view, book, and manage dance courses and classes effortlessly.
-
-Live site: https://dance-booking-system-ozb2.onrender.com
+Welcome to the Dance Course Booking System! This platform enables students and administrators of a local dance organisation to view, book, and manage dance courses and classes effortlessly.
 
 ---
 
