@@ -32,7 +32,7 @@ const session = require('express-session');
 const flash = require('connect-flash');
 
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'yourSuperSecretKey', // Change for production
+  secret: process.env.SESSION_SECRET, // Change for production
   resave: false,
   saveUninitialized: true,
   cookie: { secure: false } // Set secure: true if you are using HTTPS
