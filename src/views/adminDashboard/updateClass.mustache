@@ -11,7 +11,7 @@
         ================================================== -->
         {{> partials/nav}} 
 
-        <!-- COURSES PAGE
+        <!-- UPDATE CLASS FORM
         ================================================== -->
         <section class="theme-overlay-dark-blue left-overlay-dark form-top-position" data-overlay-dark="6"></section>
         <section class="account-section-text-align">
@@ -20,7 +20,7 @@
                    <h1 class="mb-4">Update Class</h1>
                     <!-- The form action should point to your POST update route -->
                     <form method="post" action="/adminDashboard/updateClass/update">
-                        <!-- Pass along the course ID and original class ID (if classId is editable) -->
+                        <!-- Pass along the course ID and original class ID -->
                         <input type="hidden" name="courseId" value="{{courseId}}">
                         <input type="hidden" name="originalClassId" value="{{class.classId}}">
 
@@ -44,10 +44,6 @@
                             <label for="teacher">Teacher:</label>
                             <input type="text" class="form-control" id="teacher" name="teacher" placeholder="Enter class teacher" value="{{class.teacher}}" required>
                         </div>
-                        <!--
-                            If your stored date/time are in a different format you may need to convert them
-                            to ISO format (YYYY-MM-DD and HH:MM) before passing into these inputs.
-                        -->
                         <div class="form-group mb-3">
                             <label for="date">Date:</label>
                             <input type="date" class="form-control" id="date" name="date" value="{{class.date}}" required>

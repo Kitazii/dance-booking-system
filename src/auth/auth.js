@@ -2,6 +2,9 @@ bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const userService= require('../service/userService');
 
+/**
+ * Login: Verifies credentials, creates a JWT if valid.
+ */
 exports.login = function(req, res, next) {
     let username = req.body.username;
     let password = req.body.password;
@@ -38,13 +41,22 @@ exports.login = function(req, res, next) {
     });
 };
 
+/**
+ * Register: Creates a new user if username is free.
+ */
 exports.register = function(req, res, next) {
+    const forename = req.body.forename;
+    const surname = req.body.surname;
     const username = req.body.username;
     const password = req.body.password;
+    const email = req.body.email;
 
     const userData = {
+        forename: forename,
+        surname: surname,
+        email: email,
         username: username,
-        password: password,
+        password: password
     };
 
     if (!username || !password) {
@@ -75,13 +87,16 @@ exports.verify = function (req, res, next) {
     }
 };
 
+/**
+ * Persistence: Stores user info from JWT in res.locals for views.
+ */
 exports.persistence = function (req, res, next) {
     const token = req.cookies.jwt;
     if (token) {
         try {
-            // Verify the token to extract payload data
+            // verify the token to extract payload data
             const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-            // Attach user info to locals so it can be accessed in views
+            // Attach user info to locals so it can be accessed in the views
             res.locals.user = {
                 username: payload.username,
                 role: payload.role,
@@ -90,7 +105,6 @@ exports.persistence = function (req, res, next) {
                 email: payload.email
             };
         } catch (err) {
-            // Optional: handle errors (e.g., token expired or invalid)
             res.locals.user = null;
         }
     } else {
@@ -99,15 +113,16 @@ exports.persistence = function (req, res, next) {
     next();
 };
 
-
+/**
+ * AuthorizeRole: Checks if user role is allowed to access a resource.
+ */
 exports.authorizeRole = function(allowedRoles, idParamName = 'courseId', redirectPath = '/courses/details') {
     return function (req, res, next) {
         const token = req.cookies.jwt;
         const id = req.query[idParamName] || '';
 
-        // If there is no token, user is not logged in, so we treat them as guest (allowed)
+        // If there is no token, user is not logged in, so we treat them as guest
         if (!token) {
-            //return res.status(403).send("Unauthorized: No token provided");
             return next();
         }
         try {
@@ -115,13 +130,13 @@ exports.authorizeRole = function(allowedRoles, idParamName = 'courseId', redirec
             if (allowedRoles.includes(payload.role)) {
                 return next();
             } else {
-            // Set a flash message for unauthorized access
+            //set a flash message for unauthorized access
             req.flash('errorAuth', 'Unauthorized. Must be unregistered or registered student.');
-            // Redirect back to the details page without an error in the URL
+            // redirect back to the details page without an error in the URL
             return res.redirect(`${redirectPath}?${idParamName}=${id}`);
             }
         } catch (err) {
-            // Set a flash message for invalid token
+            // set a flash message for invalid token
             req.flash('errorAuth', 'Invalid token.');
             return res.redirect(`${redirectPath}?${idParamName}=${id}`);
         }

@@ -11,7 +11,7 @@
         ================================================== -->
         {{> partials/nav}} 
 
-        <!-- COURSES PAGE
+        <!-- CLASSES DASHBOARD
         ================================================== -->
         <section class="theme-overlay-dark-blue left-overlay-dark form-top-position" data-overlay-dark="6"></section>
         <section class="account-section-text-align">
@@ -66,8 +66,7 @@
                                         </form>
                                         <form method="get" action="/adminDashboard/updateClass/{{classId}}/{{courseId}}">
                                             <td>
-                                                {{! <input type="hidden" id ="courseId" name="courseId" value="{{courseId}}{{!">}}
-                                                <button submit="button">Update</button>
+                                                <button class="btn-update" submit="button">Update</button>
                                             </td>
                                         </form>
                                         

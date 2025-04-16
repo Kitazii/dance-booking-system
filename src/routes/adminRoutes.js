@@ -2,10 +2,12 @@ const express = require('express');
 const {persistence, authorizeRole} = require('../auth/auth')
 const router = express.Router();
 
+//get necessary controllers
 const adminController = require('../controllers/adminController');
 const errorController = require('../controllers/errorController');
 
-const auth = 'admin';
+//store the role of the user in a variable
+const auth = ['admin'];
 
 router.get('/main', persistence, authorizeRole(auth), adminController.main_dashboard);
 
@@ -37,6 +39,7 @@ router.post('/users', persistence, authorizeRole(auth), adminController.delete_u
 router.get('/newUser', persistence, authorizeRole(auth), adminController.add_user_form);
 router.post('/newUser/add', persistence, authorizeRole(auth), adminController.added_user);
 
+//deals with errors
 router.use(function(err, req, res, next) {
     errorController.error_404_page(err, req, res, next);
 });

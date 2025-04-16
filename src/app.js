@@ -13,7 +13,6 @@ userService.init();
 //declare the routes
 const homeRouter = require('./routes/homeRoutes');
 const coursesRouter = require('./routes/coursesRoutes');
-const servicesRouter = require('./routes/servicesRoutes');
 const userRouter = require('./routes/userRoutes');
 const adminRouter = require('./routes/adminRoutes');
 const studentRouter = require('./routes/studentRoutes');
@@ -28,7 +27,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(public));
 
-// --- Set up session and flash messages ---
+//Set up session and flash messages
 const session = require('express-session');
 const flash = require('connect-flash');
 
@@ -52,8 +51,7 @@ app.use((req, res, next) => {
     })
     .catch(err => {
       console.error("Error fetching classes for navigation:", err);
-      // Optionally, pass the error to the next error handler or continue without classes
-      next(err);  // or simply next(); if you want to ignore the error
+      next(err);
     });
 });
 
@@ -63,14 +61,14 @@ app.set('view engine', 'mustache');
 
 //use the routes
 app.use('/courses', coursesRouter);
-app.use('/services', servicesRouter);
 app.use('/adminDashboard', adminRouter);
 app.use('/studentDashboard', studentRouter);
 app.use('/', homeRouter);
 app.use('/', userRouter);
 app.use('/', errorRouter);
 
+const port = process.env.PORT || 3000;
 
-app.listen(3000, () => {
-    console.log('Server started on http://localhost:3000');
+app.listen(port, () => {
+    console.log(`Server started on http://localhost:${port}`);
 });

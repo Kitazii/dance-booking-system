@@ -1,3 +1,4 @@
+// User model for the application
 class User {
     constructor(data) {
       this.forename = data.forename || null;

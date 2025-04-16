@@ -27,11 +27,8 @@
             </div>
         </section>
 
-        {{#error}}
-            <div class="alert alert-danger">
-                {{error}}
-            </div>
-        {{/error}}
+        <!-- Error Popup Section -->
+        {{> errors/error}}
         
         <section class="account-section-text-align">
             <div id="formContent" class="account-div-styling booking-form p-4 p-md-5 bg-white shadow-sm border-radius-5">

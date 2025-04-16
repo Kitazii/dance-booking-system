@@ -1,5 +1,6 @@
 const classModel = require('./classModel'); // Assuming classModel.js is in the same directory
 
+// Course model for the application
 class Course {
     constructor(data) {
       this.id = data._id;

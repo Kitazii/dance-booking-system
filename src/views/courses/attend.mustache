@@ -9,26 +9,23 @@
       <!-- NAVIGATION ================================================== -->
       {{> partials/nav}}
 
-      <!-- PAGE TITLE ================================================== -->
+      <!-- ATTEND PAGE ================================================== -->
       <section class="page-title-section bg-img cover-background theme-overlay-dark-blue left-overlay-dark top-position" data-overlay-dark="6">
             <div class="container">
                 <div class="row text-center align-items-center justify-content-center">
                     <div class="col-md-12">
-                        <h1 class="text-white mb-1-6">Book {{courses.name}} class</h1>
+                        <h1 class="text-white mb-1-6">Attend {{currentClass.title}} class</h1>
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li>Enrol in {{courses.name}} course</li>
+                            <li>Attend {{currentClass.title}} class</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        {{#error}}
-            <div class="alert alert-danger">
-                {{error}}
-            </div>
-        {{/error}}
+        <!-- Error Popup Section -->
+        {{> errors/error}}
 
       <!-- CLASS DETAILS AND BOOKING FORM ================================================== -->
       <section class="bg-light">
@@ -50,7 +47,6 @@
                 <p>{{currentClass.summary}}</p>
                 <ul class="list-unstyled">
                   <li><strong>Price:</strong> £{{currentClass.price}}</li>
-                  {{!-- Additional details can be added as needed --}}
                 </ul>
               </div>
 
@@ -63,14 +59,6 @@
                   <input type="hidden" id ="courseId" name="courseId" value="{{courses.id}}">
 
                   {{^user}}
-                    {{! <div class="form-group mb-3">
-                      <label for="forename" class="mb-1">Forename</label>
-                      <input type="text" class="form-control" id="forename" name="forename" placeholder="Forename" required>
-                    </div>
-                    <div class="form-group mb-3">
-                      <label for="surname" class="mb-1">Surname</label>
-                      <input type="text" class="form-control" id="surname" name="surname" placeholder="Surname" required>
-                    </div> }}
                     <div class="form-group mb-3">
                       <label for="email" class="mb-1">Email</label>
                       <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
@@ -78,14 +66,6 @@
                   {{/user}}
 
                   {{#user}}
-                    {{! <div class="form-group mb-3">
-                      <label for="forename" class="mb-1">Forename</label>
-                      <input type="text" class="form-control" id="forename" name="forename" value="{{user.forename}}{{!" readonly>
-                    </div>
-                    <div class="form-group mb-3">
-                      <label for="surname" class="mb-1">Surname</label>
-                      <input type="text" class="form-control" id="surname" name="surname" value="{{user.surname}}{{!" readonly>
-                    </div> }}
                     <div class="form-group mb-3">
                       <label for="email" class="mb-1">Email</label>
                       <input type="email" class="form-control" id="email" name="email" value="{{user.email}}" readonly>
@@ -94,8 +74,8 @@
 
                   <!-- Additional Optional Information -->
                   <div class="form-group mb-4">
-                    <label for="comments" class="mb-1">Comments / Additional Info</label>
-                    <textarea name="comments" id="comments" class="form-control" rows="3" placeholder="Any additional information (optional)"></textarea>
+                    <label for="comments" class="mb-1">Comments / Additional Info (COMING SOON)</label>
+                    <textarea name="comments" id="comments" class="form-control" rows="3" placeholder="Any additional information (optional)" disabled></textarea>
                   </div>
 
                   <!-- Confirm Booking Button -->

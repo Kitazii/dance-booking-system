@@ -1,5 +1,8 @@
 const courseService = require('../service/courseService');
 
+/**
+ * Courses Page: Fetch and render the list of all courses.
+ */
 exports.courses_page = function(req, res) {
     courseService.getAllCourses()
         .then((courses) => {
@@ -14,6 +17,9 @@ exports.courses_page = function(req, res) {
         });
 };
 
+/**
+ * Course Details Page: Fetch and render details for a specific course.
+ */
 exports.course_details_page = function(req, res) {
     const courseId = req.query.courseId;
     const error = req.flash('errorAuth');
@@ -30,7 +36,7 @@ exports.course_details_page = function(req, res) {
         })
         .catch((err) => {
           console.error('Error retrieving course details:', err);
-            // Send a response in case of error:
+            //send a response in case of error:
             res.render('courses/details', {
                 courses: [],
                 user: res.locals.user,
@@ -39,13 +45,16 @@ exports.course_details_page = function(req, res) {
         });
 };
 
+/**
+ * Class Page: Fetch course details and render a specific class.
+ */
 exports.class_page = function(req, res) {
     const classId = req.query.classId;
     const error = req.flash('errorAuth');
 
     courseService.getClassById(classId)
     .then((courses) => {
-        // Locate the specific class from the array
+        // get the specific class from the array
         const currentClass = courses.classes.find(c => c.classId === classId);
         res.render('courses/class', {
             currentClass: currentClass,
@@ -58,7 +67,6 @@ exports.class_page = function(req, res) {
     })
     .catch((err) => {
         console.error('promise rejected', err);
-        // Optionally render an error view or similar
         res.render('courses/class', {
             currentClass: null,
             courses: [],
@@ -68,11 +76,12 @@ exports.class_page = function(req, res) {
     });
 };
 
-
+/**
+ * Course Enrol Page: Fetch course details and render the enrolment page.
+ */
 exports.course_enrol_page = function(req, res) {
   const courseId = req.query.courseId;
-  //const error = req.query.error || null;
-  const error = req.flash('errorEnrolled'); // returns an array; take the first item if exists
+  const error = req.flash('errorEnrolled'); // returns an array. Search for the item using a string param
   courseService.getCourseById(courseId)
       .then((courses) => {
           res.render('courses/enrol', {
@@ -88,6 +97,9 @@ exports.course_enrol_page = function(req, res) {
   });
 };
 
+/**
+ * Course Enrolled Page: Process enrolment data and update enrolment.
+ */
 exports.course_enrolled_page = function(req, res) {
   const theUser = res.locals.user;
   const courseId = req.body.courseId;
@@ -104,13 +116,13 @@ exports.course_enrolled_page = function(req, res) {
   .then(course => {
     if (course && course.enrolledStudents && course.enrolledStudents.some(student => student.email === enrollmentData.email)) {
       console.log("Email already enrolled:", enrollmentData.email);
-      // Use flash to store the error message securely
+      // use flash to store the error message securely
       req.flash('errorEnrolled', 'User already enrolled');
       return res.redirect(`/courses/enrol?courseId=${courseId}`);
     }
     return courseService.postEnrolledData(courseId, enrollmentData);
   }).then(updatedCourse => {
-      // If the user was already enrolled and we redirected, updatedCourse will be undefined.
+      // If the user was already enrolled and we redirected, updatedCourse will be undefined
       if (!updatedCourse) return;
       res.render('courses/enrolled', {
         courses: updatedCourse,
@@ -126,25 +138,28 @@ exports.course_enrolled_page = function(req, res) {
     });
 };
 
+/**
+ * Course Attend Page: Fetch class details and render the attend page.
+ */
 exports.course_attend_page = function(req, res) {
   const classId = req.query.classId;
-  const error = req.flash('errorAttend'); // returns an array; take the first item if exists
+  const error = req.flash('errorAttend');
   console.log('Fetching class for classId:', classId);
   
   courseService.getClassById(classId)
     .then(courses => {
       if (!courses) {
-        // If no course/class is found, set a flash error and redirect to a safe location.
+        //second string is the error message
         req.flash('errorAttend', 'Class not found.');
-        return res.redirect('/courses/details'); // adjust to an appropriate fallback path
+        return res.redirect('/courses/details');
       }
-      // Now safely access classes on the courses object.
+
       const currentClass = courses.classes ? courses.classes.find(c => c.classId === classId) : null;
       
       if (!currentClass) {
         // If current class is not found, handle it similarly
         req.flash('errorAttend', 'Class not available.');
-        return res.redirect('/courses/details'); // or another appropriate path
+        return res.redirect('/courses/details');
       }
 
       res.render('courses/attend', {
@@ -157,11 +172,14 @@ exports.course_attend_page = function(req, res) {
     })
     .catch(err => {
       console.error('Error retrieving class:', err);
-      // Optionally, set a flash message or render an error page
       res.status(500).send("Error retrieving class details.");
     });
 };
 
+
+/**
+ * Course Attended Page: Process attendance data and update attendance.
+ */
 exports.course_attended_page = function(req, res) {
   const theUser = res.locals.user;
   const classId = req.body.classId;
@@ -189,21 +207,24 @@ exports.course_attended_page = function(req, res) {
           attendenceData.surname = student.surname;
         }
       });
-      // Locate the specific class object using the classId
+
     const currentClass = course.classes.find(c => c.classId === classId);
+    // Check if the student has already attended this class
     if (currentClass && currentClass.attendedStudents &&
       currentClass.attendedStudents.some(student => student.email === attendenceData.email)) {
       console.log("Student already attended:", attendenceData.email);
-      // Redirect to error page if the email is already enrolled.
+      // Redirect to error page if the email is already enrolled
       req.flash('errorAttend', 'User already attending');
       return res.redirect(`/courses/attend?classId=${classId}`);
     }
+
     return courseService.postAttendedData(courseId, classId, attendenceData);
+
   }).then(updatedCourse => {
-      // If the course was already enrolled and we redirected, updatedCourse will be undefined.
+      //if the course was already enrolled and we redirected, updatedCourse will be undefined.
       if (!updatedCourse) return;
 
-      // Locate the specific class from the array
+      // get the specific class from the array
       const currentClass = updatedCourse.classes.find(c => c.classId === classId);
       res.render('courses/attended', {
         currentClass: currentClass,

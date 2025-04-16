@@ -167,6 +167,7 @@ class CourseRepository {
         });
     }
 
+    // Post attended student data by courseId and class ID and attendenceData
     postAttendedData(courseId, classId, attendenceData) {
         return new Promise((resolve, reject) => {
              // Find the course document by courseId.
@@ -178,23 +179,23 @@ class CourseRepository {
                 return reject(new Error('Course not found'));
                 }
         
-                // Ensure the "classes" array exists.
+                // Ensure the "classes" array exists
                 if (!Array.isArray(course.classes)) {
                 return reject(new Error('No classes available in this course.'));
                 }
         
-                // Locate the index of the class with the matching classId.
+                // Locate the index of the class with the matching classId
                 const classIndex = course.classes.findIndex(c => c.classId === classId);
                 if (classIndex === -1) {
                 return reject(new Error('Class not found'));
                 }
         
-                // Ensure attendedStudents exists on the class object.
+                // Ensure attendedStudents exists on the class object
                 if (!course.classes[classIndex].attendedStudents) {
                 course.classes[classIndex].attendedStudents = [];
                 }
         
-                // Check for duplicate attendance here if needed (this check might have been done in the controller).
+                // Check for duplicate attendance here
                 if (course.classes[classIndex].attendedStudents.some(student => student.email === attendenceData.email)) {
                 return reject(new Error('Student already attended this class'));
                 }
@@ -238,9 +239,10 @@ class CourseRepository {
         });
     }
 
+    //Get all classes
     getAllClasses() {
         return new Promise((resolve, reject) => {
-            // Query all courses
+            // query all courses
             this.db.find({}, (err, courseDocs) => {
               if (err) {
                 return reject(err);
@@ -261,13 +263,11 @@ class CourseRepository {
                     });
                 }
               }
-        
-              console.log('function getAllClassesFromCourses() returns: ', allClasses);
               resolve(allClasses);
             });
-          });
-        }
-
+        });
+    }
+    // Get all enrolled students
     removeEnrolledStudent(courseId, studentEmail) {
         return new Promise((resolve, reject) => {
             this.db.update(
@@ -279,7 +279,6 @@ class CourseRepository {
                     return reject(err);
                 }
                 console.log("Student removed, records updated: ", numAffected);
-                // Fetch the updated course document after the change.
                 this.db.findOne({ _id: courseId }, (err, course) => {
                     if (err) {
                     return reject(err);
@@ -288,12 +287,13 @@ class CourseRepository {
                 });
                 }
             );
-            });
+        });
     }
 
+    //remove attended student by courseId and classId
     removeAttendedStudent(courseId, classId, studentEmail) {
         return new Promise((resolve, reject) => {
-            // First, fetch the course document.
+            // First, fetch the course document
             this.db.findOne({ _id: courseId }, (err, course) => {
                 if (err) {
                 return reject(err);
@@ -321,7 +321,7 @@ class CourseRepository {
                             return cls;
                           });
                     }
-                    // Iterate over the classes.
+                    //iterate over the classes.
                     course.classes = course.classes.map(cls => {
                         // Check if this is the correct class.
                         if (cls.classId === classId && Array.isArray(cls.attendedStudents)) {
@@ -336,7 +336,6 @@ class CourseRepository {
                 });
                 }
         
-                // If no changes have been made, resolve with the unmodified course.
                 if (!updated) {
                 return resolve(course ? new Course(course) : null);
                 }
@@ -347,7 +346,7 @@ class CourseRepository {
                     return reject(err);
                 }
                 console.log("Attended student removed, records updated: ", numAffected);
-                // Retrieve the updated course document.
+                // get the updated course document.
                 this.db.findOne({ _id: courseId }, (err, updatedCourse) => {
                     if (err) {
                     return reject(err);
@@ -356,9 +355,10 @@ class CourseRepository {
                 });
                 });
             });
-            });
-        }
+        });
+    }
 
+    // Delete course by ID
     deleteCourse(courseId) {
         console.log("Deleting course with ID: ", courseId);
         return new Promise((resolve, reject) => {
@@ -370,13 +370,13 @@ class CourseRepository {
                     return reject(err);
                 }
                 console.log("Course deleted, records removed: ", numRemoved);
-                // Resolve with the number of removed documents.
                 resolve(numRemoved);
                 }
             );
         });
     }
 
+    // Add a new course
     addCourse(courseData) {
         console.log("Adding course with data: ", courseData);
         return new Promise((resolve, reject) => {
@@ -391,6 +391,7 @@ class CourseRepository {
         });
     }
 
+    // Delete a class from a course
     deleteClass(classId, courseId) {
         return new Promise((resolve, reject) => {
         // Use the update operation with $pull to remove the class from the classes array
@@ -403,19 +404,19 @@ class CourseRepository {
                     return reject(err);
                 }
                 console.log("Class deleted, records modified: ", numModified);
-                // Resolve with the number of modified documents
                 resolve(numModified);
                 }
             );
         });   
     }
 
+    //add class using courseid and class data
     addClass(courseId, classData) {
         console.log("Adding class to course with ID:", courseId, "with data:", classData);
         return new Promise((resolve, reject) => {
             this.db.update(
-                { _id: courseId },               // Locate the course by its ID.
-                { $push: { classes: classData } }, // Append the new class to the classes array.
+                { _id: courseId }, 
+                { $push: { classes: classData } },
                 {},
                 (err, numModified) => {
                     if (err) {
@@ -429,9 +430,9 @@ class CourseRepository {
         });
     }
 
+    //get class by courseId and classId
     getClass(courseId, classId) {
         return new Promise((resolve, reject) => {
-          // Find the course document by its _id field.
           this.db.findOne({ _id: courseId }, (err, courseDoc) => {
             if (err) {
               return reject(err);
@@ -439,196 +440,46 @@ class CourseRepository {
             if (!courseDoc) {
               return reject(new Error("Course not found"));
             }
-            // Locate the class within the course's classes array.
+            // get the class within the course's classes array.
             const foundClass = courseDoc.classes.find(c => c.classId === classId);
             if (!foundClass) {
               return reject(new Error("Class not found"));
             }
-            // Return the found class.
             resolve(foundClass);
           });
         });
       }
 
-      updateClass(courseId, originalClassId, classData) {
-        return new Promise((resolve, reject) => {
-            // First, fetch the whole course document.
-            this.db.findOne({ _id: courseId }, (err, course) => {
-              if (err) {
+    //update class by courseId and classId and class data
+    updateClass(courseId, originalClassId, classData) {
+    return new Promise((resolve, reject) => {
+        this.db.findOne({ _id: courseId }, (err, course) => {
+            if (err) {
+            return reject(err);
+            }
+            if (!course) {
+            return reject(new Error("Course not found"));
+            }
+    
+            //find the index of the class to update
+            const index = course.classes.findIndex(c => c.classId === originalClassId);
+            if (index === -1) {
+            return reject(new Error("Class not found"));
+            }
+    
+            // Update that specific class element with the new data
+            course.classes[index] = classData;
+    
+            // Now update the entire course document with the modified classes array.
+            this.db.update({ _id: courseId }, course, {}, (err, numModified) => {
+            if (err) {
                 return reject(err);
-              }
-              if (!course) {
-                return reject(new Error("Course not found"));
-              }
-        
-              // Find the index of the class to update.
-              const index = course.classes.findIndex(c => c.classId === originalClassId);
-              if (index === -1) {
-                return reject(new Error("Class not found"));
-              }
-        
-              // Update that specific class element with the new data.
-              course.classes[index] = classData;
-        
-              // Now update the entire course document with the modified classes array.
-              this.db.update({ _id: courseId }, course, {}, (err, numModified) => {
-                if (err) {
-                  return reject(err);
-                }
-                resolve(numModified);
-              });
+            }
+            resolve(numModified);
             });
-          });
-        }
-
-    // getSchedule() {
-    //     return new Promise((resolve, reject) => {
-    //     this.db.find({}, function(err, courses) {
-    //         if (err) {
-    //         return reject(err);
-    //         }
-            
-    //         // Find each course by its _id (assuming they exist in the DB)
-    //         const hiphop = courses.find(c => c._id === 'hiphop123');
-    //         const breaking = courses.find(c => c._id === 'breaking456');
-    //         const urban = courses.find(c => c._id === 'urban789');
-            
-    //         // Build the schedule.
-    //         // In this mapping:
-    //         // • The first row ("10:00am") uses each course’s class at index 0.
-    //         // • The second row ("12:00pm") uses each course’s class at index 1.
-    //         // • The third row ("01:00pm") uses each course’s class at index 2.
-    //         // If a teacher name is missing, we use "TBA" as a fallback.
-    //         const schedule = {
-    //         rows: [
-    //             {
-    //             time: "10:00am",
-    //             cells: [
-    //                 { content: { 
-    //                     course: hiphop.name, 
-    //                     class: hiphop.classes[0].title, 
-    //                     teacher: hiphop.classes[0].teacher 
-    //                 } 
-    //                 },
-    //                 { content: { 
-    //                     course: breaking.name, 
-    //                     class: breaking.classes[0].title, 
-    //                     teacher: breaking.classes[0].teacher 
-    //                 } 
-    //                 },
-    //                 { content: { 
-    //                     course: urban.name, 
-    //                     class: urban.classes[0].title, 
-    //                     teacher: urban.classes[0].teacher 
-    //                 } 
-    //                 },
-    //                 { content: { 
-    //                     course: hiphop.name, 
-    //                     class: hiphop.classes[1].title, 
-    //                     teacher: hiphop.classes[1].teacher || "TBA" 
-    //                 } 
-    //                 },
-    //                 { content: { 
-    //                     course: hiphop.name, 
-    //                     class: hiphop.classes[2].title, 
-    //                     teacher: hiphop.classes[2].teacher || "TBA" 
-    //                 } 
-    //                 },
-    //                 { content: { 
-    //                     course: urban.name, 
-    //                     class: urban.classes[2].title, 
-    //                     teacher: urban.classes[2].teacher 
-    //                 } 
-    //                 },
-    //                 { empty: true
-    //                 }
-    //             ]
-    //             },
-    //             {
-    //             time: "12:00pm",
-    //             cells: [
-    //                 { content: { 
-    //                     course: hiphop.name, 
-    //                     class: hiphop.classes[1].title, 
-    //                     teacher: hiphop.classes[1].teacher || "TBA" 
-    //                 } 
-    //                 },
-    //                 { content: { 
-    //                     course: breaking.name, 
-    //                     class: breaking.classes[1].title, 
-    //                     teacher: breaking.classes[1].teacher 
-    //                 } 
-    //                 },
-    //                 { content: { 
-    //                     course: urban.name, 
-    //                     class: urban.classes[1].title, 
-    //                     teacher: urban.classes[1].teacher 
-    //                 } 
-    //                 },
-    //                 { content: { 
-    //                     course: urban.name, 
-    //                     class: urban.classes[2].title, 
-    //                     teacher: urban.classes[2].teacher 
-    //                 } 
-    //                 },
-    //                 { content: { 
-    //                     course: breaking.name, 
-    //                     class: breaking.classes[0].title, 
-    //                     teacher: breaking.classes[0].teacher 
-    //                 } 
-    //                 },
-    //                 { content: { 
-    //                     course: hiphop.name, 
-    //                     class: hiphop.classes[2].title, 
-    //                     teacher: hiphop.classes[2].teacher || "TBA" 
-    //                 } 
-    //                 },
-    //                 { empty: true
-    //                 }
-    //             ]
-    //             },
-    //             {
-    //             time: "01:00pm",
-    //             cells: [
-    //                 { content: { 
-    //                     course: hiphop.name, 
-    //                     class: hiphop.classes[2].title, 
-    //                     teacher: hiphop.classes[2].teacher || "TBA" 
-    //                 } 
-    //                 },
-    //                 { content: { 
-    //                     course: breaking.name, 
-    //                     class: breaking.classes[2].title, 
-    //                     teacher: breaking.classes[2].teacher 
-    //                 } 
-    //                 },
-    //                 { content: { 
-    //                     course: urban.name, 
-    //                     class: urban.classes[2].title, 
-    //                     teacher: urban.classes[2].teacher 
-    //                 } 
-    //                 },
-    //                 { empty: true
-    //                 },
-    //                 { empty: true
-    //                 },
-    //                 { empty: true
-    //                 },
-    //                 { content: { 
-    //                     course: urban.name, 
-    //                     class: urban.classes[1].title, 
-    //                     teacher: urban.classes[1].teacher 
-    //                 } 
-    //                 },
-    //             ]
-    //             }
-    //         ]
-    //         };
-            
-    //         resolve(schedule);
-    //     });
-    //     });
-    // }
+        });
+        });
+    }
 }
 
 module.exports = new CourseRepository();

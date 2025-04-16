@@ -11,7 +11,7 @@
         ================================================== -->
         {{> partials/nav}} 
 
-        <!-- ATTENDED PAGE
+        <!-- ATTENDED DASHBOARD
         ================================================== -->
         <section class="theme-overlay-dark-blue left-overlay-dark form-top-position" data-overlay-dark="6"></section>
         <section class="account-section-text-align">
@@ -61,7 +61,7 @@
                                     </tr>
                                 {{/attendedStudents}}
 
-                                <!-- If a course has no enrolledStudents yet, you can handle it: -->
+                                <!-- If a course has no enrolledStudents yet, it is handled here -->
                                 {{^attendedStudents}}
                                     <tr>
                                     <td colspan="5">No students marked as attended for "{{title}}" yet.</td>

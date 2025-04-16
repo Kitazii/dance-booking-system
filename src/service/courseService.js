@@ -1,5 +1,6 @@
 const courseRepo = require('../repository/courseRepository');
 
+//for security we use a service layer to access the repository layer
 class CourseService {
   init() {
     return courseRepo.init();

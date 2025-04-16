@@ -1,3 +1,4 @@
+// Class model for the application
 class Class {
     constructor(data) {
       this.classId = data.classId || null;
@@ -13,8 +14,6 @@ class Class {
       this.attendedStudents  = data.attendedStudents || [];
 
     }
-  
-    // Add methods that encapsulate behavior specific to a class, if needed.
   }
   
   module.exports = Class;

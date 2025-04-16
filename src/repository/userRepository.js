@@ -15,6 +15,7 @@ class UserRepository {
         }
     }
 
+    //initialize the database with some users
     init() {
         const users = [
             new User({
@@ -56,6 +57,7 @@ class UserRepository {
       });
     }
 
+    //create a user and ensure security by hashing the password
     create(userData) {
         bcrypt.hash(userData.password, saltRounds).then((hash) =>{
             const newUser = new User({
@@ -81,6 +83,7 @@ class UserRepository {
         });
     }
 
+    //look for a user by username
     lookup(username, cb) {
         this.db.find({username: username}, function(err, entries) {
             console.log('lookup user:', username, 'entries:', entries,);
@@ -95,6 +98,7 @@ class UserRepository {
         });
     }
 
+    //look for a user by username using promises
     lookupPromise(username) {
         return new Promise((resolve, reject) => {
           this.db.find({ username: username }, (err, entries) => {
@@ -111,6 +115,7 @@ class UserRepository {
         });
       }
 
+    //get all the users
     getAllUsers() {
         return new Promise((resolve, reject) => {
             this.db.find({}, function(err, users) {
@@ -119,13 +124,13 @@ class UserRepository {
                 } else {
                     const usersInstances = users.map(data => new User(data));
                     resolve(usersInstances);
-                    //to see what the returned data looks like
                     console.log('function all() returns: ', usersInstances);
                 }
             });
         });
     }
 
+    //delete a user by username
     deleteUser(username) {
         console.log("Deleting user by username: ", username);
         return new Promise((resolve, reject) => {

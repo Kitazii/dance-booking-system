@@ -11,7 +11,7 @@
         ================================================== -->
         {{> partials/nav}} 
 
-        <!-- LOGIN TITLE
+        <!-- LOGIN PAGE
         ================================================== -->
         <section class="theme-overlay-dark-blue left-overlay-dark form-top-position" data-overlay-dark="6"></section>
         <section class="account-section-text-align">
@@ -19,12 +19,8 @@
             <div id="formContent" class="account-div-styling">
                 <!-- Login Form -->
 
-                <!-- Error Message Block -->
-                {{#error}}
-                    <div class="alert alert-danger">
-                        {{error}}
-                    </div>
-                {{/error}}
+                <!-- Error Popup Section -->
+                {{> errors/error}}
                 <form method="post" action="/login">
                     <div class="form-group">
                         <label for="username" class="col-formlabel">User Name</label>

@@ -1,5 +1,6 @@
 const userRepo = require('../repository/userRepository');
 
+//for security we use a service layer to access the repository layer
 class UserService {
   init() {
     return userRepo.init();

@@ -1,13 +1,19 @@
 const courseService = require('../service/courseService');
 const userService = require('../service/userService');
 
+
+/**
+ * Main Dashboard: Render main admin dashboard.
+ */
 exports.main_dashboard = function(req, res) {
     res.render('adminDashboard/main', {
         user: res.locals.user
     });
 };
 
-// ENROLLED
+/**
+ * Enrolled Dashboard: Render enrolled courses dashboard.
+ */
 exports.enrolled_dashboard = function(req, res) {
     courseService.getAllCourses()
         .then((courses) => {
@@ -22,16 +28,20 @@ exports.enrolled_dashboard = function(req, res) {
     });
 };
 
+
+/**
+ * Remove Enrolled Student: Remove student from enrolled list.
+ */
 exports.remove_enrolled_student = function(req, res) {
     const courseId = req.body.courseId;
     const studentEmail = req.body.email;
     courseService.removeEnrolledStudent(courseId, studentEmail)
     .then(() => {
-        // Remove the student from attended students in all classes of that course.
+        //remove the student from attended students in all classes of that course.
         return courseService.removeAttendedStudent(courseId, null, studentEmail);
       })
       .then(() => {
-            // Redirect to GET route that loads all courses
+            // redirect to GET route that loads all courses
             res.redirect('/adminDashboard/enrolled');
 
         })
@@ -40,7 +50,9 @@ exports.remove_enrolled_student = function(req, res) {
     });
 };
 
-// ATTENDED
+/**
+ * Attended Dashboard: Render attended classes dashboard.
+ */
 exports.attended_dashboard = function(req, res) {
     courseService.getAllClasses()
         .then((classes) => {
@@ -55,13 +67,16 @@ exports.attended_dashboard = function(req, res) {
     });
 };
 
+/**
+ * Remove Attended Student: Remove student from a class.
+ */
 exports.remove_attended_student = function(req, res) {
     const courseId = req.body.courseId;
     const classId = req.body.classId;
     const studentEmail = req.body.email;
     courseService.removeAttendedStudent(courseId, classId, studentEmail)
         .then(() => {
-            // Redirect to GET route that loads all courses
+            //redirect to GET route that loads all courses
             res.redirect('/adminDashboard/attended');
 
         })
@@ -70,7 +85,9 @@ exports.remove_attended_student = function(req, res) {
     });
 };
 
-// COURSES
+/**
+ * Courses Dashboard: Render courses dashboard.
+ */
 exports.courses_dashboard = function(req, res) {
     courseService.getAllCourses()
         .then((courses) => {
@@ -85,6 +102,9 @@ exports.courses_dashboard = function(req, res) {
     });
 };
 
+/**
+ * Delete Course: Delete a course.
+ */
 exports.delete_course = function(req, res) {
     const courseId = req.body.courseId;
     courseService.deleteCourse(courseId)
@@ -98,12 +118,19 @@ exports.delete_course = function(req, res) {
     });
 };
 
+
+/**
+ * Add Course Form: Render form to add a new course.
+ */
 exports.add_course_form = function(req, res) {
     res.render('adminDashboard/newCourse', {
         user: res.locals.user
     });
 };
 
+/**
+ * Added Course: Create a new course.
+ */
 exports.added_course = function(req, res) {
     // Build a new course object from form data.
     const courseData = {
@@ -117,7 +144,7 @@ exports.added_course = function(req, res) {
         sessions: req.body.sessions,
         type: req.body.type,
         teachers: req.body.teachers,
-        classes: []  // No classes at creation time; they can be added later.
+        classes: []  //no classes at creation time. Will be added later.
     };
     courseService.addCourse(courseData)
         .then(() => {
@@ -130,7 +157,9 @@ exports.added_course = function(req, res) {
     });
 };
 
-// CLASSES
+/**
+ * Classes Dashboard: Render classes dashboard.
+ */
 exports.classes_dashboard = function(req, res) {
     courseService.getAllClasses()
         .then((classes) => {
@@ -145,6 +174,10 @@ exports.classes_dashboard = function(req, res) {
     });
 };
 
+
+/**
+ * Delete Class: Delete a class from a course.
+ */
 exports.delete_class = function(req, res) {
     const classId = req.body.classId;
     const courseId = req.body.courseId;
@@ -161,38 +194,38 @@ exports.delete_class = function(req, res) {
     });
 };
 
+/**
+ * Add Class Form: Render form to add a new class.
+ */
 exports.add_class_form = function(req, res) {
     res.render('adminDashboard/newClass', {
         user: res.locals.user
     });
 };
 
+/**
+ * Added Class: Create a new class.
+ */
 exports.added_class = function(req, res) {
-    // Extract the course ID and build the new class object from form data.
+    //extract the course ID and build the new class object from form data.
     const courseId = req.body.courseId;
-
-    // let date = new Date();
-    // const formattedDate = date.toLocaleDateString('en-US');
-    // const formattedTime = date.toLocaleTimeString('en-US');
 
     const rawDateString = req.body.date;
     const rawTimeString = req.body.time;
 
-    // Combine date and time into one string.
-    // Adjust the format if needed; this format "YYYY-MM-DD HH:mm" often works.
+    //combine date and time into one string.
     const combinedDateTimeString = `${rawDateString} ${rawTimeString}`;
 
-    // Create a Date object from the combined string.
+    //create a Date object from the combined string.
     const parsedDate = new Date(combinedDateTimeString);
 
-    // Now you can safely call the formatting methods.
-    const formattedDate = parsedDate.toLocaleDateString('en-US');  // e.g. "4/12/2025"
+    const formattedDate = parsedDate.toLocaleDateString('en-US'); 
     const formattedTime = parsedDate.toLocaleTimeString('en-US', {  
         hour: 'numeric',
         minute: 'numeric',
         second: 'numeric',
         hour12: true
-    });  // e.g. "2:30:00 PM"
+    });
 
         
     const classData = {
@@ -207,10 +240,8 @@ exports.added_class = function(req, res) {
         price: parseFloat(req.body.price)
     };
 
-    // Call the service to add the class to the specified course.
     courseService.addClass(courseId, classData)
         .then(() => {
-            // After adding the class, redirect to the classes dashboard.
             res.redirect('/adminDashboard/classes');
         })
         .catch((err) => {
@@ -219,6 +250,9 @@ exports.added_class = function(req, res) {
         });
 };
 
+/**
+ * Update Class Form: Render form to update a class.
+ */
 exports.update_class_form = function(req, res) {
     const classId = req.params.classId;
     const courseId = req.params.courseId;
@@ -240,23 +274,24 @@ exports.update_class_form = function(req, res) {
     });
 };
 
+/**
+ * Updated Class: Update class data.
+ */
 exports.updated_class = function(req, res) {
-    // Extract the course ID and original class ID from hidden fields.
     const courseId = req.body.courseId;
-    const originalClassId = req.body.originalClassId; // In case classId is being updated
+    const originalClassId = req.body.originalClassId;
 
-    // Get the raw date and time values from the form.
+    // Get the raw date and time values from the form
     const rawDateString = req.body.date;  // should be in YYYY-MM-DD format
     const rawTimeString = req.body.time;  // should be in HH:MM format
 
-    // Combine date and time into one string.
+    // Combine date and time into one string
     const combinedDateTimeString = `${rawDateString} ${rawTimeString}`;
 
-    // Create a Date object. (If needed, adjust the format if you have seconds, etc.)
+    //create a Date object
     const parsedDate = new Date(combinedDateTimeString);
 
-    // Format the date and time as desired (for storage or further display).
-    // Adjust options as necessary.
+    // Format the date and time
     const formattedDate = parsedDate.toLocaleDateString('en-US');  
     const formattedTime = parsedDate.toLocaleTimeString('en-US', {  
     hour: 'numeric',
@@ -267,7 +302,7 @@ exports.updated_class = function(req, res) {
 
     // Build the updated class data.
     const classData = {
-    classId: req.body.classId,  // This may be different from the original if the admin changed it.
+    classId: req.body.classId,
     title: req.body.title,
     description: req.body.description,
     summary: req.body.summary,
@@ -278,10 +313,8 @@ exports.updated_class = function(req, res) {
     price: parseFloat(req.body.price)
     };
 
-    // Call the service to update the class.
     courseService.updateClass(courseId, originalClassId, classData)
     .then(() => {
-        // Redirect to a suitable dashboard or listing page.
         res.redirect('/adminDashboard/classes');
     })
     .catch((err) => {
@@ -290,7 +323,9 @@ exports.updated_class = function(req, res) {
     });
 };
 
-// USERS
+/**
+ * Users Dashboard: Render users dashboard.
+ */
 exports.users_dashboard = function(req, res) {
     userService.getAllUsers()
         .then((users) => {
@@ -310,11 +345,13 @@ exports.users_dashboard = function(req, res) {
     });
 };
 
+/**
+ * Delete User: Delete a user.
+ */
 exports.delete_user = function(req, res) {
     const username = req.body.username;
     userService.deleteUser(username)
       .then(() => {
-            // Redirect to GET route that loads all courses
             res.redirect('/adminDashboard/users');
 
         })
@@ -323,12 +360,18 @@ exports.delete_user = function(req, res) {
     });
 };
 
+/**
+ * Add User Form: Render form to add a new user.
+ */
 exports.add_user_form = function(req, res) {
     res.render('adminDashboard/newUser', {
         user: res.locals.user
     });
 };
 
+/**
+ * Added User: Create a new user.
+ */
 exports.added_user = function(req, res) {
     // Build a new course object from form data.
     const userData = {
@@ -342,7 +385,7 @@ exports.added_user = function(req, res) {
      userService.lookupPromise(userData.username)
     .then((existingUser) => {
       if (existingUser) {
-        // If a user already exists, throw an error that we later catch.
+        // if a user already exists, throw an error that we later catch.
         throw new Error("UserAlreadyExists");
       }
       // Otherwise, create the user (assuming userService.create returns a promise)
