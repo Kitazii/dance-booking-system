@@ -40,12 +40,22 @@ app.use(session({
 }));
 
 app.use(flash());
-// Optionally, make flash messages available in all templates
-// app.use((req, res, next) => {
-//   res.locals.flash = req.flash();
-//   next();
-// });
-// --- End session and flash setup ---
+
+// Global middleware to load classes for navigation
+app.use((req, res, next) => {
+  // Use the service to load all classes across courses
+  courseService.getAllClasses()
+    .then(classes => {
+      // Attach the classes to res.locals so they are available to all views
+      res.locals.classes = classes;
+      next();
+    })
+    .catch(err => {
+      console.error("Error fetching classes for navigation:", err);
+      // Optionally, pass the error to the next error handler or continue without classes
+      next(err);  // or simply next(); if you want to ignore the error
+    });
+});
 
 const mustache = require('mustache-express');
 app.engine('mustache', mustache());

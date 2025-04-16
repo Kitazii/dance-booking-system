@@ -99,3 +99,20 @@
     width: 50px;
     height: 60px;
 }
+
+/* avatar size */
+.avatar-resized {
+    width: 70px;
+    height: 70px;
+}
+
+/* logo size */
+.logo-resized {
+    width: 200px;
+}
+
+/* course size */
+.course-resized {
+    width: 551px;
+    height: 331px;
+}
