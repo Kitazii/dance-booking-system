@@ -22,10 +22,10 @@ Welcome to the Dance Course Booking System! This platform enables students and a
 
 The Dance Course Booking System supports:
 
-- **Public Users** (not logged in) can browse information about the organisation, view upcoming and current courses, and enrol in courses or book individual class sessions.
+- **Public Users** (not logged in & registered students) can browse information about the organisation, view upcoming and current courses, and enrol in courses or book individual class sessions.
 - **Organisers** (authenticated administrators) can manage courses and classes, maintain participant lists, and administer organiser and user accounts.
 
-The organisation offers classes for all fitness levels and abilities. Courses may range from weekend workshops (e.g., five sessions over two days) to longer weekly series (e.g., twelve sessions over three months). On average, five weekly courses run continuously, plus one or two intensive weekend workshops each year.
+The organisation offers classes for all fitness levels and abilities. Courses may range from weekend workshops (e.g., five sessions over two days) to longer weekly series (e.g., twelve sessions over three months).
 
 ---
 
@@ -49,18 +49,19 @@ The organisation offers classes for all fitness levels and abilities. Courses ma
   - Enrol in an entire course
   - Book attendance at individual class sessions
 
-### Administrative Panel (Organisers)
+### User roles (authenticated)
+- **Register**
+  - When a user registers, they are assigned the "student" role 
+- **Login**
+  - User can log in as a "student"
+    - A registered student can enrol in a course quicker as data is preloaded
+  - User can log in as an "admin" (organiser)
 
-- **Authentication**
-  - Secure login for organisers (Admin role)
+### Administrative Panel (Organisers)
+- Admin has access to a dashboard for:
 - **Course & Class Management**
-  - Create and delete courses
-  - Add, update, or remove individual class sessions
-- **Participant Management**
-  - Attendee list can be viewed in admin backend
+- **Student Management**
 - **User & Organiser Management**
-  - Add or remove organiser accounts
-  - Remove or ban public users if necessary
 
 ---
 
@@ -102,20 +103,20 @@ The organisation offers classes for all fitness levels and abilities. Courses ma
 ### Administrator Access (Organisers)
 
 1. Visit `/login` and log in with your organiser(admin) credentials.
-2. in both "Attended" and "Courses" dashboard you can view a list of student and remove them
-   - Removing a user from an enrolled coruse will automatically remove them from the Attended class taht falls into that course
+2. in both "Attended" and "Courses" dashboard you can view a list of student and remove them.
+   - Removing a user from an enrolled course will automatically remove them from all the attended classes that belongs to that course
 4. Use the "Courses" dashboard to:
-   - **Add Course**: Create a new course with name, total duration, description, price, and default schedule.
+   - **Add Course**: Create a new course.
    - **Edit Course**: Update course details.
    - **Delete Course**: Remove a course and all associated class sessions.
 5. Use the "Classes" dashboard to:
    - view individual class details
-   - **Add** classes
-   - **Update** classes
-   - **Delete**: specific classes.
+   - **Add** a class
+   - **Update** a class
+   - **Delete** a class
 6.  Use the "Users" dashboard to:
-   - **Add** users
-   - **Delete**: specific users.
+   - **Add** a user
+   - **Delete**: a user
 
 ---
 
@@ -125,6 +126,4 @@ The organisation offers classes for all fitness levels and abilities. Courses ma
 https://dance-booking-system-ozb2.onrender.com
 
 ---
-
-*Happy dancing and booking!*
 
